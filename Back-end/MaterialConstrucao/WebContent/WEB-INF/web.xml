@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>MaterialConstrucao</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>br.com.adenilsonpr.control.security.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>Controle</display-name>
+		<servlet-name>Controle</servlet-name>
+		<servlet-class>br.com.adenilsonpr.view.control.Controle</servlet-class>
+	</servlet>
+
+	<!-- Mapa da controle =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/Controle</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Mapa de usuario =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarUsuario</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarUsuario</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarUsuario</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirUsuario</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarUsuario</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa de login =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarLogin</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa de telefone =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarTelefone</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarTelefone</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarTelefone</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirTelefone</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarTelefone</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Mapa de endereco =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarEndereco</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarEndereco</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarEndereco</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirEndereco</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarEndereco</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa de cartao =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarCartao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarCartao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarCartao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirCartao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarCartao</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do material =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarMaterial</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarMaterial</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarMaterial</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirMaterial</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarMaterial</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa da venda =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarVenda</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarVenda</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarVenda</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirVenda</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarVenda</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do item =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarItem</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarItem</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarItem</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirItem</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarItem</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do cupom de troca =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarCupomTroca</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarCupomTroca</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarCupomTroca</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirCupomTroca</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarCupomTroca</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do cupom promocional =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarCupomPromocional</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarCupomPromocional</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarCupomPromocional</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirCupomPromocional</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarCupomPromocional</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do fornecedor =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarFornecedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarFornecedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarFornecedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirFornecedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarFornecedor</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do grupo precificação =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarGrupoPrecificacao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarGrupoPrecificacao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarGrupoPrecificacao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirGrupoPrecificacao</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarGrupoPrecificacao</url-pattern>
+	</servlet-mapping>
+
+	<!-- Mapa do grupo frete =========================== -->
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/SalvarFrete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ConsultarFrete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/VisualizarFrete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/ExcluirFrete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controle</servlet-name>
+		<url-pattern>/AlterarFrete</url-pattern>
+	</servlet-mapping>
+</web-app>
