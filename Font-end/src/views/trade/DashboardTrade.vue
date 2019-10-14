@@ -158,7 +158,14 @@
               </v-flex>
               <v-spacer></v-spacer>
               <v-flex sm2>
-                <v-text-field label="Quantidade" v-model="item.quantidade" prefix="x" type="number"></v-text-field>
+                <v-text-field
+                  label="Quantidade"
+                  v-model="item.quantidade"
+                  prefix="x"
+                  type="number"
+                  min="0"
+                  :max="item.estoque"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -220,6 +227,7 @@ export default {
       this.item.valorVenda = this.materiais[index].valorVenda;
       this.item.quantidade = 1;
       this.item.material = this.materiais[index].id;
+      this.item.estoque = this.materiais[index].quantidade;
       this.index = id;
     },
 
@@ -283,6 +291,22 @@ export default {
         contador += Number(item.quantidade);
       });
       return contador;
+    },
+
+    validaQuantidade: function() {
+      this.itens.forEach(item => {
+        this.materiais.forEach(material => {
+          if (item.id == material.id) {
+            if (item.quantidade >= material.quantidade) {
+              console.log("entrou");
+              return true;
+            } else {
+              console.log("não entrou");
+              return false;
+            }
+          }
+        });
+      });
     }
   },
 

@@ -14,21 +14,22 @@ public class ReentradaEstoque implements IStrategy {
 	public String processar(EntidadeDominio entidade) {
 
 		Item item = (Item) entidade;
-		
-		Material materialConsulta = new Material();
 
-		materialConsulta.setId(item.getMaterial());
+		if (item.getSituacao().equals("Troca autorizada")) {
+			Material materialConsulta = new Material();
 
-		MaterialDAO dao = new MaterialDAO();
+			materialConsulta.setId(item.getMaterial());
 
-		List<EntidadeDominio> materiais = dao.read(materialConsulta);
+			MaterialDAO dao = new MaterialDAO();
 
-		Material materialAlterado = (Material) materiais.get(0);
+			List<EntidadeDominio> materiais = dao.read(materialConsulta);
 
-		materialAlterado.setQuantidade(materialAlterado.getQuantidade() + item.getQuantidade());
-				
-		dao.update(materialAlterado);
+			Material materialAlterado = (Material) materiais.get(0);
 
+			materialAlterado.setQuantidade(materialAlterado.getQuantidade() + item.getQuantidade());
+
+			dao.update(materialAlterado);
+		}
 		return null;
 	}
 

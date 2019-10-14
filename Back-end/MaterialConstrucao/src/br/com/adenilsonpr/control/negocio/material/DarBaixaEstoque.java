@@ -15,20 +15,18 @@ public class DarBaixaEstoque implements IStrategy {
 
 		Item item = (Item) entidade;
 
-		if (item.getSituacao() == "Troca autorizada") {
-			Material materialConsulta = new Material();
+		Material materialConsulta = new Material();
 
-			materialConsulta.setId(item.getMaterial());
+		materialConsulta.setId(item.getMaterial());
 
-			MaterialDAO dao = new MaterialDAO();
+		MaterialDAO dao = new MaterialDAO();
 
-			List<EntidadeDominio> materiais = dao.read(materialConsulta);
+		List<EntidadeDominio> materiais = dao.read(materialConsulta);
 
-			Material materialAlterado = (Material) materiais.get(0);
+		Material materialAlterado = (Material) materiais.get(0);
 
-			materialAlterado.setQuantidade(materialAlterado.getQuantidade() - item.getQuantidade());
-			dao.update(materialAlterado);
-		}
+		materialAlterado.setQuantidade(materialAlterado.getQuantidade() - item.getQuantidade());
+		dao.update(materialAlterado);
 
 		return null;
 	}

@@ -98,13 +98,16 @@
 
 <script>
 import TradeToolbar from "../../components/trade/TradeToolbar.vue";
+import axios from "axios";
+import qs from "querystring";
 import { mapState, mapMutations } from "vuex";
 import { mask } from "vue-the-mask";
 
 export default {
   data: () => ({
     itens: [],
-    cep: ""
+    cep: "",
+    frete: 0
   }),
 
   methods: {
@@ -123,6 +126,20 @@ export default {
         valorTotal: this.valorTotal
       });
       this.$router.push({ name: "makingPayment" });
+    },
+
+    async getFrete() {
+      let frete = 0;
+      await axios
+        .post(
+          "/SalvarFrete?OPERACAO=SALVAR",
+          qs.stringify({ cep: this.cep, valor: 0 })
+        )
+        .then(function(response) {
+          frete = response.data.entidades[0].valor;
+        });
+
+      this.frete = frete;
     }
   },
 
@@ -138,8 +155,9 @@ export default {
     },
 
     calcularFrete: function() {
-      if (this.cep != "") {
-        return 10;
+      if (this.cep != "" && this.cep.length == 9) {
+        this.getFrete();
+        return this.frete;
       } else {
         return 0;
       }
