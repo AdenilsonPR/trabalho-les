@@ -86,7 +86,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialogSalvar = false">Cancelar</v-btn>
-          <v-btn color="green darken-1" text @click="salvar()">confirmar</v-btn>
+          <v-btn
+            v-if="validarQuantidadeMaterial"
+            color="green darken-1"
+            text
+            @click="salvar()"
+          >confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -325,6 +330,16 @@ export default {
       this.precificacaoes = precificacaoes.data.entidades;
     }
   },
+
+  computed: {
+    validarQuantidadeMaterial: function() {
+      if (this.material.quantidade > 0) {
+        console.log("entrou");
+        return true;
+      }
+    }
+  },
+
   created() {
     this.getMateriais();
   },
