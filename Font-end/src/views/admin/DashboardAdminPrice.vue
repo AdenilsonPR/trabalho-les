@@ -71,7 +71,7 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md9>
-                <v-text-field label="Grupo de precificação" v-model="precificacao.descricao"></v-text-field>
+                <v-text-field label="Grupo de precificação" v-model="precificacao.precificacao"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-text-field label="% Lucro" v-model="precificacao.porcentagem"></v-text-field>
@@ -99,7 +99,7 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md7>
-                <v-text-field label="Grupo de precificação" v-model="precificacao.descricao"></v-text-field>
+                <v-text-field label="Grupo de precificação" v-model="precificacao.precificacao"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md2>
                 <v-text-field label="% Lucro" v-model="precificacao.porcentagem"></v-text-field>
@@ -151,7 +151,7 @@ export default {
           text: "Grupo de precificação",
           align: "left",
           sortable: true,
-          value: "descricao"
+          value: "precificacao"
         },
         { text: "% Lucro", value: "porcentagem" },
         { text: "Status", value: "status" },
@@ -172,7 +172,7 @@ export default {
 
     limpar() {
       this.precificacao.id = "";
-      this.precificacao.descricao = "";
+      this.precificacao.precificacao = "";
       this.precificacao.porcentagem = "";
       this.precificacao.status = "";
       this.getPrecificacoes();

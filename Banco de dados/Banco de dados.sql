@@ -47,7 +47,7 @@ CREATE TABLE grupoprecificacao
     id SERIAL NOT NULL,
     dataCadastro CHARACTER VARYING(30) NOT NULL,
     status CHARACTER VARYING(8) NOT NULL,
-    descricao CHARACTER VARYING(30) NOT NULL,
+    precificacao CHARACTER VARYING(30) NOT NULL,
     porcentagem NUMERIC NOT NULL,
 
     CONSTRAINT grupoprecificacao_pk PRIMARY KEY(id)
@@ -139,7 +139,7 @@ CREATE TABLE material
     categoria CHARACTER VARYING(30) NOT NULL,
     fornecedor INTEGER NOT NULL,
     precificacao INTEGER NOT NULL,
-    imagem CHARACTER VARYING(50) NOT NULL,
+    imagem CHARACTER VARYING(50),
     custo NUMERIC NOT NULL,
     valorvenda NUMERIC NOT NULL,
     quantidade INTEGER NOT NULL,

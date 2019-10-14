@@ -21,26 +21,26 @@ public class GrupoPrecificacaoViewHelper implements IViewHelper {
 
 		String operacao = request.getParameter("OPERACAO");
 
-		GrupoPrecificacao precificacao = new GrupoPrecificacao();
+		GrupoPrecificacao grupoPrecificacao = new GrupoPrecificacao();
 
 		if (!operacao.equals("VISUALIZAR") && !operacao.equals("EXCLUIR") && !operacao.equals("CONSULTAR")) {
 
 			// Dado do preficicação.
 
-			String descricao = request.getParameter("descricao");
-			String porcentagem = request.getParameter("porcentagem");
+			String descricao = request.getParameter("precificacao");
+			String precificacao = request.getParameter("porcentagem");
 
 			if (operacao.equals("SALVAR")) {
-				precificacao.setStatus("Ativo");
-				precificacao.setDataCadastro(String.valueOf(new Date()).replace(":", "."));
+				grupoPrecificacao.setStatus("Ativo");
+				grupoPrecificacao.setDataCadastro(String.valueOf(new Date()).replace(":", "."));
 			}
 
 			if (descricao != null && !descricao.trim().equals("")) {
-				precificacao.setDescricao(descricao);
+				grupoPrecificacao.setPrecificacao(descricao);
 			}
 
-			if (porcentagem != null && !porcentagem.trim().equals("")) {
-				precificacao.setPorcentagem(Double.valueOf(porcentagem));
+			if (precificacao != null && !precificacao.trim().equals("")) {
+				grupoPrecificacao.setPorcentagem(Double.valueOf(precificacao));
 			}
 
 			if (operacao.equals("ALTERAR")) {
@@ -49,11 +49,11 @@ public class GrupoPrecificacaoViewHelper implements IViewHelper {
 				String status = request.getParameter("status");
 
 				if (id != null && !id.trim().equals("")) {
-					precificacao.setId(Integer.valueOf(id));
+					grupoPrecificacao.setId(Integer.valueOf(id));
 				}
 
 				if (status != null && !status.trim().equals("")) {
-					precificacao.setStatus(status);
+					grupoPrecificacao.setStatus(status);
 				}
 			}
 
@@ -61,18 +61,18 @@ public class GrupoPrecificacaoViewHelper implements IViewHelper {
 			String id = request.getParameter("id");
 
 			if (operacao.equals("EXCLUIR")) {
-				precificacao.setStatus("Ativo");
+				grupoPrecificacao.setStatus("Ativo");
 			}
 
 			if (id != null && !id.trim().equals("")) {
-				precificacao.setId(Integer.valueOf(id));
+				grupoPrecificacao.setId(Integer.valueOf(id));
 			} else {
-				precificacao.setId(0);
+				grupoPrecificacao.setId(0);
 			}
 
 		}
 
-		return precificacao;
+		return grupoPrecificacao;
 
 	}
 
