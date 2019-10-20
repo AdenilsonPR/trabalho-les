@@ -75,7 +75,7 @@
           <v-card class="mb-1" v-if="enderecos.length < 2">
             <v-card-text>
               <v-layout row wrap>
-                <v-flex sm12>
+                <v-flex sm12 data-cy="enderecos">
                   {{preencherEndereco()}}
                   <v-select
                     v-model="enderecoSelecionado"
@@ -85,25 +85,25 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md2>
-                  <v-text-field label="CEP" v-model="cep"></v-text-field>
+                  <v-text-field label="CEP" v-model="cep" data-cy="cep"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md5>
-                  <v-text-field label="Logradouro" v-model="logradouro"></v-text-field>
+                  <v-text-field label="Logradouro" v-model="logradouro" data-cy="logradouro"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md5>
-                  <v-text-field label="Bairro" v-model="bairro"></v-text-field>
+                  <v-text-field label="Bairro" v-model="bairro" data-cy="bairro"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md5>
-                  <v-text-field label="Cidade" v-model="cidade"></v-text-field>
+                  <v-text-field label="Cidade" v-model="cidade" data-cy="cidade"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+                <v-flex xs12 sm6 md4 data-cy="estado">
                   <v-select
                     :items="['São Paulo', 'Rio de Janeiro', 'Minas Gerais']"
                     label="Estado"
                     v-model="estado"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm6 md3>
+                <v-flex xs12 sm6 md3 data-cy="pais">
                   <v-select
                     :items="['Brasil', 'Japão', 'Estados Unidos', 'Canadá']"
                     label="País"
@@ -111,26 +111,26 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md2>
-                  <v-text-field label="Nº" v-model="numero"></v-text-field>
+                  <v-text-field label="Nº" v-model="numero" data-cy="numero"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md3>
+                <v-flex xs12 sm6 md3 data-cy="tipo-residencia">
                   <v-select
                     :items="['Casa', 'Apartamento']"
                     label="Tipo de rêsidencia"
                     v-model="tipoResidencia"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm6 md3>
+                <v-flex xs12 sm6 md3 data-cy="tipo-logradouro">
                   <v-select
                     :items="['Rua', 'Avenida']"
                     label="Tipo de logradouro"
                     v-model="tipoLogradouro"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm6 md2>
+                <v-flex xs12 sm6 md2 data-cy="entrega">
                   <v-select :items="['Sim', 'Não']" label="Entrega" v-model="entrega"></v-select>
                 </v-flex>
-                <v-flex xs12 sm6 md2>
+                <v-flex xs12 sm6 md2 data-cy="cobranca">
                   <v-select :items="['Sim', 'Não']" label="Cobrança" v-model="cobranca"></v-select>
                 </v-flex>
               </v-layout>
@@ -144,6 +144,7 @@
               fab
               dark
               color="deep-orange accent-4"
+              data-cy="add"
             >
               <v-icon @click="addEndereco()">done</v-icon>
             </v-btn>
@@ -192,6 +193,7 @@
                 v-bind:disabled="!continuar"
                 v-bind:dark="continuar"
                 @click="irResumo()"
+                data-cy="continuar"
               >Continuar</v-btn>
             </v-card-actions>
           </v-card>
@@ -228,7 +230,7 @@ export default {
   methods: {
     ...mapMutations(["getEnderecos"]),
 
-    async listarCartao() {
+    async listarEndereco() {
       let enderecos = await axios.get(
         `/ConsultarEndereco?OPERACAO=CONSULTAR&usuario=${this.stateUsuario.id}`
       );
@@ -288,6 +290,8 @@ export default {
           this.pais = e.pais;
           this.tipoResidencia = e.tipoResidencia;
           this.tipoLogradouro = e.tipoLogradouro;
+          this.entrega = e.entrega;
+          this.cobranca = e.cobranca;
         }
       });
     },
@@ -350,7 +354,7 @@ export default {
   },
 
   created() {
-    this.listarCartao();
+    this.listarEndereco();
   },
 
   components: {

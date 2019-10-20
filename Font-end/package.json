@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "cypress:open": "cypress open",
+    "cypress": "cypress run -b chrome",
+    "cypress:chrome": "cypress run"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -28,6 +31,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
+    "cypress": "^3.4.1",
     "material-design-icons-iconfont": "^5.0.1",
     "vue-cli-plugin-vuetify": "^0.6.1",
     "vue-template-compiler": "^2.6.10"

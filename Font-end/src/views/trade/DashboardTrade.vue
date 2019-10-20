@@ -22,7 +22,7 @@
         <v-layout wrap justify-space-around>
           <v-menu transition="slide-y-transition" bottom offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn icon v-on="on">
+              <v-btn icon v-on="on" data-cy="carrinho-compra">
                 <v-icon>shopping_cart</v-icon>
               </v-btn>
             </template>
@@ -53,6 +53,7 @@
                   color="deep-orange accent-4"
                   dark
                   @click="irCarrinhoCompra()"
+                  data-cy="ir-carrinho-compra"
                 >Carrinho de compra</v-btn>
               </v-list-item>
             </v-list>
@@ -75,7 +76,7 @@
 
           <v-list v-if="stateUsuario.id !== undefined">
             <v-list-item>
-              <v-btn text :to="{name: 'dashboardClientData'}">Perfil</v-btn>
+              <v-btn text :to="{name: 'dashboardClientData'}" data-cy="perfil">Perfil</v-btn>
             </v-list-item>
             <v-list-item>
               <v-btn text :to="{name: 'login'}" data-cy="sair">Sair</v-btn>
@@ -83,7 +84,7 @@
           </v-list>
 
           <v-list v-else>
-            <v-list-item>
+            <v-list-item data-cy="entrar">
               <v-btn text :to="{name: 'login'}">Entrar</v-btn>
             </v-list-item>
           </v-list>
@@ -127,6 +128,7 @@
                 color="deep-orange accent-4"
                 dark
                 @click="visualizar(index, material.id)"
+                :data-cy="`material-${index}`"
               >Visualizar</v-btn>
             </v-card-actions>
           </v-card>
@@ -165,6 +167,7 @@
                   type="number"
                   min="0"
                   :max="item.estoque"
+                  data-cy="quantidade"
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -179,6 +182,7 @@
             dark
             @click="addItensCarrinho()"
             v-if="stateUsuario.id !== undefined"
+            data-cy="adicionar-carrinho"
           >Adicionar ao carrinho</v-btn>
         </v-card-actions>
       </v-card>

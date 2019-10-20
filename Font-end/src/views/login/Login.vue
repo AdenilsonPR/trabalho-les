@@ -20,6 +20,7 @@
                 type="text"
                 maxlength="30"
                 id="email"
+                data-cy="email"
               ></v-text-field>
               <v-text-field
                 v-model="login.senha"
@@ -27,7 +28,7 @@
                 :rules="regrasSenha"
                 type="password"
                 maxlength="16"
-                id="senha"
+                data-cy="senha"
               ></v-text-field>
             </v-form>
           </v-card-text>
@@ -37,7 +38,7 @@
               @click="verificaLogin()"
               color="deep-orange accent-4"
               dark
-              id="confirmar"
+              data-cy="confirmar"
             >Confirmar</v-btn>
           </v-card-actions>
         </v-card>

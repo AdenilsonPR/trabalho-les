@@ -96,7 +96,13 @@
               </v-layout>
             </v-card-text>
             <v-card-actions>
-              <v-btn dark color="deep-orange accent-4" block @click="finalizar()">Finalizar compra</v-btn>
+              <v-btn
+                dark
+                color="deep-orange accent-4"
+                block
+                @click="finalizar()"
+                data-cy="continuar"
+              >Finalizar compra</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -127,7 +133,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="irDashboardTrade()">confirmar</v-btn>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="irDashboardTrade()"
+            data-cy="confirmar"
+          >confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

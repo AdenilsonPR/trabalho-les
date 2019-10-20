@@ -103,7 +103,7 @@
             color="green darken-1"
             text
             @click="dialogTroca = true, dialogItem = false"
-            v-if="item.situacao == 'Vendido'"
+            v-if="item.situacao == 'Entregue'"
           >Trocar</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialogItem = false">Cancelar</v-btn>
@@ -166,6 +166,7 @@ export default {
       searchItems: "",
       descricao: "",
       motivo: "",
+      situacao: "",
       headers: [
         {
           text: "Data de compra",
@@ -223,13 +224,16 @@ export default {
     },
 
     visualizarCompra(compra) {
+      this.situacao = compra.situacao;
       this.visualizarItensCompra = compra.itens;
       this.dialogCompra = true;
     },
 
     visualizarItem(item) {
+      item.situacao = this.situacao;
       this.item = item;
       this.dialogItem = true;
+      console.log(this.item);
     }
   },
 

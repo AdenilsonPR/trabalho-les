@@ -7,7 +7,7 @@
         <v-flex sm9>
           <!-- Carrinho de compra -->
           <p class="display-1 text-center mt-5">Carrinho de compra</p>
-          <v-card v-for="item in itens" :key="item.id" class="mb-1">
+          <v-card v-for="(item, index) in itens" :key="index" class="mb-1">
             <v-card-text>
               <v-layout row wrap>
                 <v-flex sm1>
@@ -29,6 +29,7 @@
                     v-model="item.quantidade"
                     type="number"
                     prefix="x"
+                    :data-cy="`quantidade-${index}`"
                   ></v-text-field>
                 </v-flex>
                 <v-spacer></v-spacer>
@@ -65,7 +66,13 @@
                   >{{calcularFrete.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</span>
                 </v-flex>
                 <v-flex sm12>
-                  <v-text-field name="cep" label="CEP" v-model="cep" v-mask="'#####-###'"></v-text-field>
+                  <v-text-field
+                    name="cep"
+                    label="CEP"
+                    v-model="cep"
+                    v-mask="'#####-###'"
+                    data-cy="cep"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex sm12></v-flex>
                 <v-flex sm12></v-flex>
@@ -87,6 +94,7 @@
                 v-bind:disabled="!validarCep"
                 v-bind:dark="validarCep"
                 @click="irPagamento()"
+                data-cy="continuar"
               >Continuar</v-btn>
             </v-card-actions>
           </v-card>

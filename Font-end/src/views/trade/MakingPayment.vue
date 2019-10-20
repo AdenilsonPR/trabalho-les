@@ -12,12 +12,13 @@
             <v-card-text>
               <v-layout row wrap>
                 <!-- Selecionar forma de pagamento -->
-                <v-flex sm2>
+                <v-flex sm2 data-cy="tipo-pagamento">
                   <v-select
                     v-model="formaPagamento"
                     label="Forma de pagamento"
                     :items="[{value: 'boleto', text: 'Boleto'}, {value: 'cartao', text: 'Cartão'}]"
                     item-value="value"
+                    data-cy="campo-teste"
                   ></v-select>
                 </v-flex>
 
@@ -27,7 +28,7 @@
                 </v-flex>
 
                 <!-- Cupons de desconto -->
-                <v-flex sm7>
+                <v-flex sm7 data-cy="cupons">
                   <v-select
                     v-model="cuponsSelecionados"
                     :items="cuponsTroca"
@@ -74,35 +75,35 @@
               <v-card-text>
                 <v-layout row wrap>
                   <!-- Selecionar cartão cadastrado -->
-                  <v-flex sm12>
+                  <v-flex sm12 data-cy="cartoes">
                     {{preencherCartao()}}
                     <v-select
                       v-model="cartaoSelecionado"
                       label="Meus cartões"
                       :items="numeroCartoesCadastrados"
                       item-value="value"
-                      id="selectCartao"
                     ></v-select>
                   </v-flex>
                   <v-flex sm4>
-                    <v-text-field label="Nome impresso" v-model="nome" id="nome"></v-text-field>
+                    <v-text-field label="Nome impresso" v-model="nome" data-cy="nome"></v-text-field>
                   </v-flex>
                   <v-flex sm3>
-                    <v-text-field label="Número" v-model="numero" id="numero"></v-text-field>
+                    <v-text-field label="Número" v-model="numero" data-cy="numero"></v-text-field>
                   </v-flex>
-                  <v-flex sm2>
-                    <v-select
-                      :items="['Bradesco', 'Elo']"
-                      label="Bandeira"
-                      v-model="bandeira"
-                      id="bandeira"
-                    ></v-select>
+                  <v-flex sm2 data-cy="bandeira">
+                    <v-select :items="['Bradesco', 'Elo']" label="Bandeira" v-model="bandeira"></v-select>
                   </v-flex>
                   <v-flex sm1>
-                    <v-text-field label="Código" v-model="codigo" id="codigo"></v-text-field>
+                    <v-text-field label="Código" v-model="codigo" data-cy="codigo"></v-text-field>
                   </v-flex>
                   <v-flex sm2>
-                    <v-text-field label="Valor" v-model="valor" prefix="R$" id="valor"></v-text-field>
+                    <v-text-field
+                      label="Valor"
+                      v-model="valor"
+                      prefix="R$"
+                      id="valor"
+                      data-cy="valor"
+                    ></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-card-text>
@@ -117,7 +118,7 @@
               fab
               dark
               color="deep-orange accent-4"
-              id="btnDone"
+              data-cy="add"
             >
               <v-icon @click="addCartao()">done</v-icon>
             </v-btn>
@@ -206,6 +207,7 @@
                 v-bind:disabled="!continuar"
                 v-bind:dark="continuar"
                 @click="irAddress()"
+                data-cy="continuar"
               >Continuar</v-btn>
             </v-card-actions>
           </v-card>
