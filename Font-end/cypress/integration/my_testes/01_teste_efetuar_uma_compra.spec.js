@@ -60,7 +60,7 @@ describe("Teste: efetuar uma compra", () => {
         cy.get('[data-cy=bandeira]').click()
         cy.contains('div', 'Bradesco').parent('div').click()
         cy.get('[data-cy=codigo]').type('123')
-        cy.get('[data-cy=valor]').type('11385')
+        cy.get('[data-cy=valor]').type('1260')
         cy.wait(1000)
         cy.get('[data-cy=add]').click()
         cy.wait(1000)
