@@ -1,4 +1,4 @@
-describe("Teste: gerir compra.", () => {
+describe("Teste: gerir pedido de troca.", () => {
 
     it('Efetuar login.', () => {
         cy.visit('/')
@@ -12,14 +12,16 @@ describe("Teste: gerir compra.", () => {
         cy.get('[data-cy=confirmar]').click()
     });
 
-    it('Mudar situação da compra.', () => {
+    it('Mudar situação da troca.', () => {
         cy.wait(1000)
         cy.contains('div', 'Trocas').parent('div').click()
         cy.wait(3000)
-        cy.get('[data-cy=pesquisar]').type('112510')
+        cy.get('[data-cy=pesquisar]').type('1125')
         cy.wait(3000)
         cy.get('td>i').eq(-1).click()
+        cy.wait(3000)
         cy.get('[data-cy=situacao]').click()
+        cy.wait(3000)
         cy.contains('div', 'Troca autorizada').parent('div').click()
         cy.wait(3000)
         cy.get('[data-cy=confirmar]').click()

@@ -78,7 +78,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialog = false">Cancelar</v-btn>
-          <v-btn color="green darken-1" text @click="alterar()">confirmar</v-btn>
+          <v-btn color="green darken-1" text @click="alterar()" data-cy="confirmar">confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

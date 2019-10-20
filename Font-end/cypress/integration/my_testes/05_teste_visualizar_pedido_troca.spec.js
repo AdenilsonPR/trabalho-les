@@ -1,4 +1,4 @@
-describe("Teste: efeturar pedido de troca.", () => {
+describe("Teste: visualizar pedido de troca e cupom.", () => {
 
     it('Efetuar login.', () => {
         cy.visit('/')
@@ -12,28 +12,10 @@ describe("Teste: efeturar pedido de troca.", () => {
         cy.get('[data-cy=confirmar]').click()
     });
 
-    it('Fazer pedido de troca.', () => {
+    it('Ir para o perfil.', () => {
         cy.wait(3000)
         cy.get('[data-cy=menu]').click()
         cy.get('[data-cy=perfil]').click()
-        cy.wait(1000)
-        cy.contains('div', 'Compras').parent('div').click()
-        cy.wait(3000)
-        cy.get('[data-cy=pesquisar]').type('112510')
-        cy.wait(3000)
-        cy.get('td>i').eq(-1).click()
-        cy.wait(3000)
-        cy.get('[data-cy=visualizar]').click()
-        cy.wait(3000)
-        cy.get('[data-cy=trocar]').click()
-        cy.wait(3000)
-        cy.get('[data-cy=motivo]').click()
-        cy.wait(1000)
-        cy.contains('div', 'Defeito').parent('div').click()
-        cy.get('[data-cy=descricao]').type('O material foi entregue quebrado.')
-        cy.wait(3000)
-        cy.get('[data-cy=confirmar]').click()
-        cy.get('[data-cy=cancelar]').click()
     });
 
     it('Visualizar pedido de troca.', () => {
@@ -43,6 +25,11 @@ describe("Teste: efeturar pedido de troca.", () => {
         cy.get('td>i').eq(-1).click()
         cy.wait(3000)
         cy.get('[data-cy=cancelar]').click()
+    });
+
+    it('Visualizar cupom.', () => {
+        cy.wait(3000)
+        cy.contains('div', 'Cupons').parent('div').click()
         cy.wait(3000)
         cy.get('[data-cy=sair]').click()
     });

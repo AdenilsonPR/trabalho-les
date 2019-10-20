@@ -44,7 +44,6 @@ describe("Teste: efetuar uma compra", () => {
         cy.get('[data-cy=cupons]').click()
         cy.wait(500)
         cy.contains('div', '1125').parent('div').click()
-        cy.contains('div', '1500').parent('div').click()
         cy.wait(500)
         cy.focused().type('{esc}')
 
@@ -61,7 +60,7 @@ describe("Teste: efetuar uma compra", () => {
         cy.get('[data-cy=bandeira]').click()
         cy.contains('div', 'Bradesco').parent('div').click()
         cy.get('[data-cy=codigo]').type('123')
-        cy.get('[data-cy=valor]').type('9885')
+        cy.get('[data-cy=valor]').type('11385')
         cy.wait(1000)
         cy.get('[data-cy=add]').click()
         cy.wait(1000)
