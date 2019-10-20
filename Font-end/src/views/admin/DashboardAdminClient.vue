@@ -19,7 +19,7 @@
         :items="clientes"
         :search="search"
         :hide-default-footer="true"
-        items-per-page="1000000"
+        items-per-page="10000"
         fixed-header
         height="490px"
       >

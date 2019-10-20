@@ -17,6 +17,7 @@
           label="Pesquisar"
           single-line
           hide-details
+          data-cy="pesquisar"
         ></v-text-field>
       </v-card-title>
       <v-data-table
@@ -26,9 +27,10 @@
         :hide-default-footer="true"
         fixed-header
         height="490px"
+        items-per-page="10000"
       >
         <template v-slot:item.visualizarVenda="{item}">
-          <v-icon @click="visualizarCompra(item)">edit</v-icon>
+          <v-icon @click="visualizarCompra(item)" :data-cy="`venda-${item.id}`">edit</v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -45,7 +47,7 @@
           <v-card-title>
             <v-container grid-list-lg class="ma-0 pa-0">
               <v-layout row wrap>
-                <v-flex sm4>
+                <v-flex sm4 data-cy="situacao">
                   <v-select
                     :items="['Em processamento','Aprovado', 'Reprovado', 'Em transporte', 'Entregue']"
                     label="Situação"
@@ -77,7 +79,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialog = false">Cancelar</v-btn>
-          <v-btn color="green darken-1" text @click="alterar()">confirmar</v-btn>
+          <v-btn color="green darken-1" text @click="alterar()" data-cy="confirmar">confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

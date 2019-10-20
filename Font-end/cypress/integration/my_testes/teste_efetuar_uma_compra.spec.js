@@ -2,14 +2,18 @@ describe("Teste: efetuar uma compra", () => {
 
     it('Efetuar login.', () => {
         cy.visit('/')
+        cy.wait(3000)
         cy.get('[data-cy=menu]').click()
+        cy.wait(1000)
         cy.get('[data-cy=entrar]').click()
         cy.get('[data-cy=email]').type('email')
         cy.get('[data-cy=senha]').type('Abc123456;')
+        cy.wait(1000)
         cy.get('[data-cy=confirmar]').click()
     });
 
     it('Escolher material.', () => {
+        cy.wait(3000)
         cy.get('[data-cy=material-0]').click()
         cy.wait(1000)
         cy.get('[data-cy=quantidade]').type(5)
@@ -99,5 +103,9 @@ describe("Teste: efetuar uma compra", () => {
         cy.get('[data-cy=continuar]').click()
         cy.wait(1000)
         cy.get('[data-cy=confirmar]').click()
+        cy.wait(1000)
+        cy.get('[data-cy=menu]').click()
+        cy.wait(1000)
+        cy.get('[data-cy=sair]').click()
     });
 })

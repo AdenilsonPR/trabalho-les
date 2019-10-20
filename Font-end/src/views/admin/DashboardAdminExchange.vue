@@ -27,6 +27,7 @@
         :hide-default-footer="true"
         fixed-header
         height="490px"
+        items-per-page="10000"
       >
         <template v-slot:item.visualizarTroca="{item}">
           <v-icon @click="visualizarTroca(item)">edit</v-icon>

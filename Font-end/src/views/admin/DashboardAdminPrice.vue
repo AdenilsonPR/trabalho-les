@@ -21,6 +21,7 @@
         :hide-default-footer="true"
         fixed-header
         height="490px"
+        items-per-page="10000"
       >
         <template v-slot:item.edit="{item}">
           <v-icon @click="visualizar(item)">edit</v-icon>
