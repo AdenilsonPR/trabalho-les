@@ -17,6 +17,7 @@
           label="Pesquisar"
           single-line
           hide-details
+          data-cy="pesquisar"
         ></v-text-field>
       </v-card-title>
       <v-data-table
@@ -60,14 +61,19 @@
             height="300px"
           >
             <template v-slot:item.visualizarItem="{item}">
-              <v-icon @click="visualizarItem(item)">visibility</v-icon>
+              <v-icon @click="visualizarItem(item)" data-cy="visualizar">visibility</v-icon>
             </template>
           </v-data-table>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="dialogCompra = false">Cancelar</v-btn>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialogCompra = false"
+            data-cy="cancelar"
+          >Cancelar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -104,6 +110,7 @@
             text
             @click="dialogTroca = true, dialogItem = false"
             v-if="item.situacao == 'Entregue'"
+            data-cy="trocar"
           >Trocar</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialogItem = false">Cancelar</v-btn>
@@ -122,7 +129,7 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex sm12>
+              <v-flex sm12 data-cy="motivo">
                 <v-select
                   :items="['Defeito', 'Insatisfação']"
                   label="Motivo da troca"
@@ -130,7 +137,7 @@
                 ></v-select>
               </v-flex>
               <v-flex sm12>
-                <v-textarea label="Descrição" rows="3" v-model="descricao"></v-textarea>
+                <v-textarea label="Descrição" rows="3" v-model="descricao" data-cy="descricao"></v-textarea>
               </v-flex>
             </v-layout>
           </v-container>
@@ -138,7 +145,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialogTroca = false">Cancelar</v-btn>
-          <v-btn color="green darken-1" text @click="trocar()">confirmar</v-btn>
+          <v-btn color="green darken-1" text @click="trocar()" data-cy="confirmar">confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

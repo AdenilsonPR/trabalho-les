@@ -18,6 +18,7 @@
           label="Pesquisar"
           single-line
           hide-details
+          data-cy="pesquisar"
         ></v-text-field>
       </v-card-title>
       <v-data-table
@@ -58,7 +59,7 @@
               <v-flex sm4>
                 <v-text-field label="Valor total" v-model="troca.valorTotal" readonly></v-text-field>
               </v-flex>
-              <v-flex sm4>
+              <v-flex sm4 data-cy="situacao">
                 <v-select
                   :items="['Em troca', 'Troca autorizada', 'Troca negada']"
                   label="Situação"

@@ -8,7 +8,7 @@
     <v-btn icon :to="{name: 'dashboardTrade'}">
       <v-icon>home</v-icon>
     </v-btn>
-    <v-btn icon :to="{name: 'login'}">
+    <v-btn icon :to="{name: 'login'}" data-cy="sair">
       <v-icon>logout</v-icon>
     </v-btn>
   </v-app-bar>
