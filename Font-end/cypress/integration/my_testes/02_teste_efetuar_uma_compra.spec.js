@@ -1,4 +1,4 @@
-describe("Teste: efetuar uma compra", () => {
+describe("Teste: efetuar uma compra.", () => {
 
     it('Efetuar login.', () => {
         cy.visit('/')
