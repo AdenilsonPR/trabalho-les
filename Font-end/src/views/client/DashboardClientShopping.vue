@@ -208,7 +208,9 @@ export default {
       let dadosCompra = await axios.get(
         `/ConsultarVenda?OPERACAO=CONSULTAR&usuario=${this.stateUsuario.id}`
       );
-      this.compras = dadosCompra.data.entidades;
+      this.compras = dadosCompra.data.entidades.map(compra => {
+        compra.dataCadastro = this.formatteDate(compra.dataCadastro);
+      });
     },
 
     async trocar() {
@@ -241,6 +243,15 @@ export default {
       this.item = item;
       this.dialogItem = true;
       console.log(this.item);
+    },
+
+    formatteDate(data) {
+      let vetData = data.split(" ");
+      let newFormatte = `${vetData[1]} ${vetData[2]} ${vetData[5]}`;
+      let d = new Date(newFormatte);
+      return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+        .map(n => (n < 10 ? `0${n}` : `${n}`))
+        .join("/");
     }
   },
 

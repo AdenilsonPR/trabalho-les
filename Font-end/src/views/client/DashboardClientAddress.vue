@@ -265,7 +265,7 @@ export default {
     },
 
     async salvar() {
-      this.endereco.pessoa = this.stateUsuario.id;
+      this.endereco.usuario = this.stateUsuario.id;
       await axios
         .post("/SalvarEndereco?OPERACAO=SALVAR", qs.stringify(this.endereco))
         .then(function(response) {

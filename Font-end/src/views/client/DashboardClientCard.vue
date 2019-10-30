@@ -188,7 +188,7 @@ export default {
     },
 
     async salvar() {
-      this.cartao.cliente = this.stateUsuario.id;
+      this.cartao.usuario = this.stateUsuario.id;
       await axios
         .post("/SalvarCartao?OPERACAO=SALVAR", qs.stringify(this.cartao))
         .then(function(response) {

@@ -16,7 +16,7 @@ describe("Teste: gerir compra.", () => {
         cy.wait(1000)
         cy.contains('div', 'Vendas').parent('div').click()
         cy.wait(3000)
-        cy.get('[data-cy=pesquisar]').type('112510')
+        cy.get('[data-cy=pesquisar]').type('1510')
         cy.wait(3000)
         cy.get('td>i').eq(-1).click()
         cy.get('[data-cy=situacao]').click()

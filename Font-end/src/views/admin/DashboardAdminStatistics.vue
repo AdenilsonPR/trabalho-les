@@ -3,26 +3,39 @@
     <AdminToolbar />
     <AdminDrawer />
     <v-card flat>
+      <v-card-title primary-title class="ml-5">
+        <v-layout row wrap align-center>
+          <v-flex xs4></v-flex>
+          <v-flex xs2>
+            <v-layout row wrap align-center>
+              <v-flex xs3>De</v-flex>
+              <v-flex xs7>
+                <v-text-field label="dd/mm/aaaa" v-model="inicio"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+
+          <v-flex xs2>
+            <v-layout row wrap align-center>
+              <v-flex xs3>até</v-flex>
+              <v-flex xs7>
+                <v-text-field label="dd/mm/aaaa" v-model="fim"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+
+          <v-flex xs2>
+            <v-layout row wrap align-center>
+              <v-flex xs7>
+                <v-btn color="success" @click="periodo()">text</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-card-title>
       <v-card-text>
-        <v-sheet>
-          <v-sparkline
-            :value="value"
-            color="rgba(0, 0, 0, .7)"
-            height="138"
-            padding="24"
-            stroke-linecap="round"
-            smooth
-          >
-            <template v-slot:label="item">R${{ item.value }}</template>
-          </v-sparkline>
-        </v-sheet>
+        <VueApexCharts width="500" type="line" :options="options" :series="series"></VueApexCharts>
       </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-actions class="justify-center">
-        <v-btn block text>Go to Report</v-btn>
-      </v-card-actions>
     </v-card>
     <AdminFooter />
   </v-app>
@@ -39,15 +52,93 @@ html {
 import AdminDrawer from "../../components/admin/AdminDrawer.vue";
 import AdminFooter from "../../components/admin/AdminFooter.vue";
 import AdminToolbar from "../../components/admin/AdminToolbar.vue";
+import VueApexCharts from "vue-apexcharts";
+import axios from "axios";
 
 export default {
   data: () => ({
-    value: [423, 446, 675, 510, 590, 610, 760, 423, 446, 675]
+    options: {
+      chart: {
+        id: "vuechart-example"
+      },
+      xaxis: {
+        type: "datetime"
+      }
+    },
+    series: [
+      {
+        name: "Valor de custo",
+        data: []
+      },
+      {
+        name: "Valor de venda",
+        data: []
+      }
+    ],
+
+    inicio: "",
+    fim: "",
+    vendas: [],
+    dataCadastro: []
   }),
+
+  methods: {
+    async getVendas() {
+      let vendas = await axios.get("/ConsultarVenda?OPERACAO=CONSULTAR");
+      this.vendas = vendas.data.entidades;
+      console.log(this.vendas);
+
+      this.vendas.forEach(venda => {
+        this.dataCadastro.push({
+          x: this.formatteDate(venda.dataCadastro),
+          y: 0
+        });
+      });
+    },
+
+    periodo() {
+      let newData = [];
+
+      this.series[0].data.forEach(e => {
+        if (
+          this.dataFormatoAmericano(e.x) >=
+            this.dataFormatoAmericano(this.inicio) &&
+          this.dataFormatoAmericano(e.x) <= this.dataFormatoAmericano(this.fim)
+        ) {
+          newData.push(e);
+        }
+      });
+      this.series = [
+        {
+          data: newData
+        }
+      ];
+    },
+
+    dataFormatoAmericano(data) {
+      let parts = data.split("/");
+      return new Date(parts[2], parts[1] - 1, parts[0]);
+    },
+
+    formatteDate(data) {
+      let vetData = data.split(" ");
+      let newFormatte = `${vetData[1]} ${vetData[2]} ${vetData[5]}`;
+      let d = new Date(newFormatte);
+      return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+        .map(n => (n < 10 ? `0${n}` : `${n}`))
+        .join("/");
+    }
+  },
+
+  created() {
+    this.getVendas();
+  },
+
   components: {
     AdminDrawer,
     AdminFooter,
-    AdminToolbar
+    AdminToolbar,
+    VueApexCharts
   }
 };
 </script>
