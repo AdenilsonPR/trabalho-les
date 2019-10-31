@@ -28,6 +28,7 @@ public class ItemViewHelper implements IViewHelper {
 			String descricao = request.getParameter("descricao");
 			String quantidade = request.getParameter("quantidade");
 			String valorVenda = request.getParameter("valorVenda");
+			String valorCusto = request.getParameter("valorCusto");
 			String valorTotal = request.getParameter("valorTotal");
 			String material = request.getParameter("material");
 			String usuario = request.getParameter("usuario");
@@ -51,6 +52,10 @@ public class ItemViewHelper implements IViewHelper {
 
 			if (valorVenda != null && !valorVenda.trim().equals("")) {
 				item.setValorVenda(Double.valueOf(valorVenda));
+			}
+			
+			if (valorCusto != null && !valorCusto.trim().equals("")) {
+				item.setValorCusto(Double.valueOf(valorCusto));
 			}
 			
 			if (valorTotal != null && !valorTotal.trim().equals("")) {
@@ -92,8 +97,6 @@ public class ItemViewHelper implements IViewHelper {
 
 		} else {
 
-			String quantidade = request.getParameter("quantidade");
-			String valorTotal = request.getParameter("valorTotal");
 			String material = request.getParameter("material");
 			String venda = request.getParameter("venda");
 			String id = request.getParameter("id");
@@ -101,14 +104,6 @@ public class ItemViewHelper implements IViewHelper {
 			
 			if (operacao.equals("EXCLUIR")) {
 				item.setStatus("Ativo");
-			}
-
-			if (quantidade != null && !quantidade.trim().equals("")) {
-				item.setQuantidade(Integer.valueOf(quantidade));
-			}
-
-			if (valorTotal != null && !valorTotal.trim().equals("")) {
-				item.setValorTotal(Double.valueOf(valorTotal));
 			}
 			
 			if (material != null && !material.trim().equals("")) {

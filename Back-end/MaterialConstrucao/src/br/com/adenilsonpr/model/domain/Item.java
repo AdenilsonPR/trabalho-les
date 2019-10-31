@@ -6,6 +6,7 @@ public class Item extends EntidadeDominio {
 	private double valorVenda;
 	private int quantidade;
 	private double valorTotal;
+	private double valorCusto;
 	private String situacao;
 	private String papel;
 	private String motivo;
@@ -24,6 +25,14 @@ public class Item extends EntidadeDominio {
 
 	public double getValorVenda() {
 		return valorVenda;
+	}
+
+	public double getValorCusto() {
+		return valorCusto;
+	}
+
+	public void setValorCusto(double valorCusto) {
+		this.valorCusto = valorCusto;
 	}
 
 	public void setValorVenda(double valorVenda) {

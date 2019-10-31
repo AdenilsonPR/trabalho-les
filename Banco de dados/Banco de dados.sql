@@ -175,6 +175,7 @@ CREATE TABLE item
     quantidade INTEGER NOT NULL,
     valortotal NUMERIC NOT NULL,
     valorvenda NUMERIC NOT NULL,
+    valorcusto NUMERIC NOT NULL,
     material INTEGER NOT NULL,
     venda INTEGER NOT NULL,
     usuario INTEGER NOT NULL,

@@ -85,15 +85,29 @@ export default {
   methods: {
     async getVendas() {
       let vendas = await axios.get("/ConsultarVenda?OPERACAO=CONSULTAR");
-      this.vendas = vendas.data.entidades;
-      console.log(this.vendas);
+      vendas.data.entidades.forEach(venda => {
+        let valorCusto = 0;
+        let valorVenda = 0;
+        venda.itens.forEach(item => {
+          valorCusto += item.valorCusto;
+          valorVenda += item.valorTotal;
+        });
 
-      this.vendas.forEach(venda => {
-        this.dataCadastro.push({
-          x: this.formatteDate(venda.dataCadastro),
-          y: 0
+        this.vendas.push({
+          dataCadastro: venda.dataCadastro,
+          valorVenda: valorVenda,
+          valorCusto: valorCusto
         });
       });
+
+      this.series = [
+        {
+          data: [10, 25]
+        },
+        {
+          data: [8, 9]
+        }
+      ];
     },
 
     periodo() {

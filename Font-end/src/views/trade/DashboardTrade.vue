@@ -232,6 +232,7 @@ export default {
       this.item.quantidade = 1;
       this.item.material = this.materiais[index].id;
       this.item.estoque = this.materiais[index].quantidade;
+      this.item.valorCusto = this.materiais[index].custo;
       this.index = id;
     },
 
@@ -254,6 +255,7 @@ export default {
             descricao: this.item.descricao,
             src: this.item.src,
             valorVenda: this.item.valorVenda,
+            valorCusto: this.item.valorCusto,
             quantidade: this.item.quantidade,
             material: this.item.material,
             valorTotal: 0
@@ -265,6 +267,7 @@ export default {
           descricao: this.item.descricao,
           src: this.item.src,
           valorVenda: this.item.valorVenda,
+          valorCusto: this.item.valorCusto,
           quantidade: this.item.quantidade,
           material: this.item.material,
           valorTotal: 0
@@ -280,6 +283,7 @@ export default {
     irCarrinhoCompra() {
       this.itens.forEach(item => {
         item.valorTotal = item.valorVenda * item.quantidade;
+        item.valorCusto = item.valorCusto * item.quantidade;
       });
       this.getCarrinho(this.itens);
       this.$router.push({ name: "makingSale" });

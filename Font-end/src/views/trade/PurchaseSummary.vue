@@ -205,6 +205,7 @@ export default {
         item.papel = "Item";
         item.situacao = "Vendido";
         item.valorTotal = item.quantidade * item.valorVenda;
+
         axios
           .post("/SalvarItem?OPERACAO=SALVAR", qs.stringify(item))
           .then(function(response) {
