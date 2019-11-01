@@ -68,7 +68,24 @@ export default {
     series: [
       {
         name: "Valor de custo",
-        data: []
+        data: [
+          {
+            x: "08/09/2019",
+            y: 96
+          },
+          {
+            x: "08/11/2019",
+            y: 10
+          },
+          {
+            x: "08/15/2019",
+            y: 10
+          },
+          {
+            x: "08/21/2019",
+            y: 100
+          }
+        ]
       },
       {
         name: "Valor de venda",
@@ -94,20 +111,23 @@ export default {
         });
 
         this.vendas.push({
-          dataCadastro: venda.dataCadastro,
-          valorVenda: valorVenda,
-          valorCusto: valorCusto
+          dataCadastro: this.formatteDate(venda.dataCadastro),
+          valorVenda: Number(valorVenda),
+          valorCusto: Number(valorCusto)
         });
       });
 
-      this.series = [
-        {
-          data: [10, 25]
-        },
-        {
-          data: [8, 9]
+      var result = new Object();
+      this.vendas.filter(function(i) {
+        if (result.hasOwnProperty(i.dataCadastro)) {
+          result[i.dataCadastro].valorVenda += i.valorVenda;
+          result[i.dataCadastro].valorCusto += i.valorCusto;
+        } else {
+          result[i.dataCadastro] = new Object();
+          result[i.dataCadastro].valorVenda = i.valorVenda;
+          result[i.dataCadastro].valorCusto = i.valorCusto;
         }
-      ];
+      });
     },
 
     periodo() {
@@ -122,7 +142,7 @@ export default {
           newData.push(e);
         }
       });
-      this.series = [
+      this.series[0] = [
         {
           data: newData
         }
