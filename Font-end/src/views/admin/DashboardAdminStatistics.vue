@@ -5,12 +5,14 @@
     <v-card flat>
       <v-card-title primary-title class="mt-5">
         <v-layout row wrap align-center>
-          <v-flex xs4></v-flex>
+          <v-flex xs4>
+            <span class="display-1 ml-5">Custo x Venda</span>
+          </v-flex>
           <v-flex xs2>
             <v-layout row wrap align-center>
               <v-flex xs3>De</v-flex>
               <v-flex xs7>
-                <v-text-field label="dd/mm/aaaa" v-model="inicio"></v-text-field>
+                <v-text-field label="dd/mm/aaaa" v-model="inicio" data-cy="inicio"></v-text-field>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -19,7 +21,7 @@
             <v-layout row wrap align-center>
               <v-flex xs3>até</v-flex>
               <v-flex xs7>
-                <v-text-field label="dd/mm/aaaa" v-model="fim"></v-text-field>
+                <v-text-field label="dd/mm/aaaa" v-model="fim" data-cy="fim"></v-text-field>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -27,7 +29,12 @@
           <v-flex xs2>
             <v-layout row wrap align-center>
               <v-flex xs7>
-                <v-btn dark color="deep-orange accent-4" @click="periodo()">Filtrar</v-btn>
+                <v-btn
+                  dark
+                  color="deep-orange accent-4"
+                  @click="periodo()"
+                  data-cy="filtrar"
+                >Filtrar</v-btn>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -59,10 +66,33 @@ export default {
   data: () => ({
     options: {
       chart: {
-        id: "vuechart-example"
+        id: "vuechart-custo-venda"
       },
       xaxis: {
         type: "datetime"
+      },
+      colors: ["#990000", "#000099"],
+
+      // dataLabels: {
+      //   enabled: true
+      // },
+
+      grid: {
+        borderColor: "#e7e7e7",
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5
+        }
+      },
+      markers: {
+        size: 5
+      },
+      legend: {
+        position: "top",
+        horizontalAlign: "left",
+        floating: true,
+        offsetY: -5,
+        offsetX: 25
       }
     },
     series: [],

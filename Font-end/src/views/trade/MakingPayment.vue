@@ -18,7 +18,6 @@
                     label="Forma de pagamento"
                     :items="[{value: 'boleto', text: 'Boleto'}, {value: 'cartao', text: 'Cartão'}]"
                     item-value="value"
-                    data-cy="campo-teste"
                   ></v-select>
                 </v-flex>
 
