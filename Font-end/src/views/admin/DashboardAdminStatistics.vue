@@ -3,7 +3,7 @@
     <AdminToolbar />
     <AdminDrawer />
     <v-card flat>
-      <v-card-title primary-title class="ml-5">
+      <v-card-title primary-title class="mt-5">
         <v-layout row wrap align-center>
           <v-flex xs4></v-flex>
           <v-flex xs2>
@@ -27,14 +27,14 @@
           <v-flex xs2>
             <v-layout row wrap align-center>
               <v-flex xs7>
-                <v-btn color="success" @click="periodo()">text</v-btn>
+                <v-btn dark color="deep-orange accent-4" @click="periodo()">Filtrar</v-btn>
               </v-flex>
             </v-layout>
           </v-flex>
         </v-layout>
       </v-card-title>
       <v-card-text>
-        <VueApexCharts width="500" type="line" :options="options" :series="series"></VueApexCharts>
+        <VueApexCharts width="1060" height="490" type="line" :options="options" :series="series"></VueApexCharts>
       </v-card-text>
     </v-card>
     <AdminFooter />
@@ -65,33 +65,7 @@ export default {
         type: "datetime"
       }
     },
-    series: [
-      {
-        name: "Valor de custo",
-        data: [
-          {
-            x: "08/09/2019",
-            y: 96
-          },
-          {
-            x: "08/11/2019",
-            y: 10
-          },
-          {
-            x: "08/15/2019",
-            y: 10
-          },
-          {
-            x: "08/21/2019",
-            y: 100
-          }
-        ]
-      },
-      {
-        name: "Valor de venda",
-        data: []
-      }
-    ],
+    series: [],
 
     inicio: "",
     fim: "",
@@ -128,37 +102,99 @@ export default {
           result[i.dataCadastro].valorCusto = i.valorCusto;
         }
       });
+
+      let datas = Object.keys(result);
+      let valores = Object.values(result);
+
+      let valorCusto = [];
+      let valorVenda = [];
+
+      valores.forEach(valor => {
+        valorCusto.push(valor.valorCusto);
+        valorVenda.push(valor.valorVenda);
+      });
+
+      let linhaVenda = [];
+      for (let i = 0; i < valores.length; i++) {
+        linhaVenda.push({
+          x: datas[i],
+          y: valorVenda[i]
+        });
+      }
+
+      let linhaCusto = [];
+      for (let i = 0; i < valores.length; i++) {
+        linhaCusto.push({
+          x: datas[i],
+          y: valorCusto[i]
+        });
+      }
+
+      this.series.push(
+        {
+          name: "Valor de venda",
+          data: linhaVenda
+        },
+        {
+          name: "Valor de custo",
+          data: linhaCusto
+        }
+      );
     },
 
     periodo() {
-      let newData = [];
+      let linhaVenda = [];
+      let linhaCusto = [];
 
       this.series[0].data.forEach(e => {
         if (
-          this.dataFormatoAmericano(e.x) >=
-            this.dataFormatoAmericano(this.inicio) &&
-          this.dataFormatoAmericano(e.x) <= this.dataFormatoAmericano(this.fim)
+          e.x >= this.dataFormatoAmericano(this.inicio) &&
+          e.x <= this.dataFormatoAmericano(this.fim)
         ) {
-          newData.push(e);
+          linhaVenda.push(e);
         }
       });
-      this.series[0] = [
-        {
-          data: newData
+
+      this.series[1].data.forEach(e => {
+        if (
+          e.x >= this.dataFormatoAmericano(this.inicio) &&
+          e.x <= this.dataFormatoAmericano(this.fim)
+        ) {
+          linhaCusto.push(e);
         }
-      ];
+      });
+
+      this.series = [];
+
+      this.series.push(
+        {
+          name: "Valor de venda",
+          data: linhaVenda
+        },
+        {
+          name: "Valor de custo",
+          data: linhaCusto
+        }
+      );
+      if (this.inicio == "" || this.fim == "") {
+        this.series = [];
+        this.getVendas();
+      }
+
+      this.inicio = "";
+      this.fim = "";
     },
 
     dataFormatoAmericano(data) {
       let parts = data.split("/");
-      return new Date(parts[2], parts[1] - 1, parts[0]);
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
     },
 
     formatteDate(data) {
       let vetData = data.split(" ");
       let newFormatte = `${vetData[1]} ${vetData[2]} ${vetData[5]}`;
       let d = new Date(newFormatte);
-      return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+      return [d.getFullYear(), d.getMonth() + 1, d.getDate()]
         .map(n => (n < 10 ? `0${n}` : `${n}`))
         .join("/");
     }
