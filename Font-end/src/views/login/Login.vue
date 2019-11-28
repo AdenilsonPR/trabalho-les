@@ -91,7 +91,7 @@ export default {
 
       if (
         dadosLogin.data.mensagem == "Invalido" ||
-        dadosLogin.data.entidades[0].status == "Inativo"
+        dadosLogin.data.entidades[0].status == "Desativo"
       ) {
         this.snackbar = true;
         this.msg = "E-mail ou senha incorretos";

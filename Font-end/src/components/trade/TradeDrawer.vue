@@ -7,6 +7,15 @@
 
       <v-list-item @click="{}">
         <v-list-item-action>
+          <v-icon>select_all</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Todos</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item @click="{}">
+        <v-list-item-action>
           <v-icon>layers</v-icon>
         </v-list-item-action>
         <v-list-item-content>

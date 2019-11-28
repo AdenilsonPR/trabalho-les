@@ -117,8 +117,10 @@ export default {
   },
   methods: {
     async getCliente() {
-      let dataCliente = await axios.get("/ConsultarCliente?OPERACAO=CONSULTAR");
-      this.clientes = dataCliente.data;
+      let dataCliente = await axios.get("/ConsultarUsuario?OPERACAO=CONSULTAR");
+      this.clientes = dataCliente.data.entidades.filter(
+        cliente => cliente.papel != "Administrador"
+      );
     },
 
     visualizarCliente(cliente) {
