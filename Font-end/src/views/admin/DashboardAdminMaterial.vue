@@ -188,6 +188,8 @@
     </v-dialog>
 
     <AdminFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -204,7 +206,7 @@ import AdminFooter from "../../components/admin/AdminFooter.vue";
 import AdminToolbar from "../../components/admin/AdminToolbar.vue";
 import axios from "axios";
 import qs from "querystring";
-import { formatteMoney } from "../../util/Formatter.js";
+import { formatteMoney, moneyToFloat } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -212,6 +214,8 @@ export default {
       dialogAlterar: false,
       dialogSalvar: false,
       dialogMotivo: false,
+      snackbar: false,
+      msg: "",
       search: "",
       headers: [
         {
@@ -252,20 +256,37 @@ export default {
     },
 
     async salvar() {
-      await axios.post(
-        "/SalvarMaterial?OPERACAO=SALVAR",
-        qs.stringify(this.material)
-      );
+      let myThis = this;
+      await axios
+        .post("/SalvarMaterial?OPERACAO=SALVAR", qs.stringify(this.material))
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getMateriais();
       this.limpar();
       this.dialogSalvar = false;
     },
 
     async alterar() {
-      await axios.post(
-        "/AlterarMaterial?OPERACAO=ALTERAR",
-        qs.stringify(this.material)
-      );
+      this.material.valorVenda = moneyToFloat(this.material.valorVenda);
+      this.material.custo = moneyToFloat(this.material.custo);
+
+      let myThis = this;
+      await axios
+        .post("/AlterarMaterial?OPERACAO=ALTERAR", qs.stringify(this.material))
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getMateriais();
       this.limpar();
       this.dialogAlterar = false;
@@ -278,6 +299,11 @@ export default {
     },
 
     async motivoExcluir() {
+      this.materialExcluir.valorVenda = moneyToFloat(
+        this.materialExcluir.valorVenda
+      );
+      this.materialExcluir.custo = moneyToFloat(this.materialExcluir.custo);
+
       await axios.post(
         "/AlterarMaterial?OPERACAO=ALTERAR",
         qs.stringify(this.materialExcluir)
@@ -286,9 +312,17 @@ export default {
     },
 
     async excluir() {
-      await axios.post(
-        `/ExcluirMaterial?OPERACAO=EXCLUIR&id=${this.materialExcluir.id}`
-      );
+      let myThis = this;
+      await axios
+        .post(`/ExcluirMaterial?OPERACAO=EXCLUIR&id=${this.materialExcluir.id}`)
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getMateriais();
       this.materialExcluir = {};
       this.dialogMotivo = false;
@@ -311,7 +345,6 @@ export default {
         "/ConsultarFornecedor?OPERACAO=CONSULTAR"
       );
 
-      console.log("fornecedores", fornecedores);
       fornecedores.data.entidades.forEach(fornecedor => {
         this.nomesFornecedores.push({
           value: fornecedor.id,
@@ -327,7 +360,6 @@ export default {
         "/ConsultarGrupoPrecificacao?OPERACAO=CONSULTAR"
       );
 
-      console.log("precificacaoes", precificacaoes);
       precificacaoes.data.entidades.forEach(precificacao => {
         this.nomesGrupoPrecificacao.push({
           value: precificacao.id,
@@ -341,7 +373,6 @@ export default {
   computed: {
     validarQuantidadeMaterial: function() {
       if (this.material.quantidade > 0) {
-        console.log("entrou");
         return true;
       }
     }

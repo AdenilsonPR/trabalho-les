@@ -84,6 +84,7 @@
       </v-card>
     </v-dialog>
     <AdminFooter />
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -101,12 +102,18 @@ import AdminToolbar from "../../components/admin/AdminToolbar.vue";
 import axios from "axios";
 import qs from "querystring";
 import { mapState } from "vuex";
-import { formatteDate, formatteMoney } from "../../util/Formatter.js";
+import {
+  formatteDate,
+  formatteMoney,
+  moneyToFloat
+} from "../../util/Formatter.js";
 
 export default {
   data() {
     return {
       dialog: false,
+      snackbar: false,
+      msg: "",
       search: "",
       searchItems: "",
       situacao: "",
@@ -155,15 +162,21 @@ export default {
     },
 
     async alterar() {
+      this.venda.total = moneyToFloat(this.venda.total);
+
+      let myThis = this;
       await axios
         .post("/AlterarVenda?OPERACAO=ALTERAR", qs.stringify(this.venda))
         .then(function(response) {
-          console.log();
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.dialog = false;
+      this.listar();
     },
 
     visualizarCompra(item) {

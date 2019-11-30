@@ -10,3 +10,9 @@ export function formatteDate(data) {
 export function formatteMoney(real) {
     return real.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+
+export function moneyToFloat(money) {
+    return Number(money.replace("R$", "").replace(",", "."));
+}
+
+

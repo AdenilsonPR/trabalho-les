@@ -138,6 +138,8 @@
     </v-dialog>
 
     <ClientFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -155,6 +157,8 @@ export default {
     dialogAlterar: false,
     dialogExcluir: false,
     idCliente: "",
+    snackbar: false,
+    msg: "",
     cartoes: [],
 
     cartao: {
@@ -189,13 +193,17 @@ export default {
 
     async salvar() {
       this.cartao.usuario = this.stateUsuario.id;
+      let myThis = this;
+
       await axios
         .post("/SalvarCartao?OPERACAO=SALVAR", qs.stringify(this.cartao))
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.limparCartao();
@@ -203,13 +211,17 @@ export default {
     },
 
     async alterar() {
+      let myThis = this;
+
       await axios
         .post("/AlterarCartao?OPERACAO=ALTERAR", qs.stringify(this.cartao))
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.limparCartao();
@@ -230,13 +242,17 @@ export default {
     },
 
     async excluir(index) {
+      let myThis = this;
+
       await axios
         .post(`/ExcluirCartao?OPERACAO=EXCLUIR&id=${this.cartoes[index].id}`)
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.dialogExcluir = false;

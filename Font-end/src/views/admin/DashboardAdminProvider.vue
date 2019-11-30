@@ -112,6 +112,8 @@
     </v-dialog>
 
     <AdminFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -134,6 +136,8 @@ export default {
     return {
       dialogAlterar: false,
       dialogSalvar: false,
+      snackbar: false,
+      msg: "",
       search: "",
       headers: [
         {
@@ -167,27 +171,57 @@ export default {
     },
 
     async salvar() {
-      await axios.post(
-        "/SalvarFornecedor?OPERACAO=SALVAR",
-        qs.stringify(this.fornecedor)
-      );
+      let myThis = this;
+      await axios
+        .post(
+          "/SalvarFornecedor?OPERACAO=SALVAR",
+          qs.stringify(this.fornecedor)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getFornecedores();
       this.limpar();
       this.dialogSalvar = false;
     },
 
     async alterar() {
-      await axios.post(
-        "/AlterarFornecedor?OPERACAO=ALTERAR",
-        qs.stringify(this.fornecedor)
-      );
+      let myThis = this;
+      await axios
+        .post(
+          "/AlterarFornecedor?OPERACAO=ALTERAR",
+          qs.stringify(this.fornecedor)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getFornecedores();
       this.limpar();
       this.dialogAlterar = false;
     },
 
     async excluir(item) {
-      await axios.post(`/ExcluirFornecedor?OPERACAO=EXCLUIR&id=${item.id}`);
+      let myThis = this;
+      await axios
+        .post(`/ExcluirFornecedor?OPERACAO=EXCLUIR&id=${item.id}`)
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getFornecedores();
     },
 

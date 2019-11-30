@@ -152,6 +152,8 @@
 
     <!-- Footer -->
     <ClientFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -162,7 +164,11 @@ import ClientFooter from "../../components/client/ClientFooter.vue";
 import axios from "axios";
 import qs from "querystring";
 import { mapState } from "vuex";
-import { formatteDate, formatteMoney } from "../../util/Formatter.js";
+import {
+  formatteDate,
+  formatteMoney,
+  moneyToFloat
+} from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -170,6 +176,8 @@ export default {
       dialogCompra: false,
       dialogItem: false,
       dialogTroca: false,
+      snackbar: false,
+      msg: "",
       search: "",
       searchItems: "",
       descricao: "",
@@ -224,17 +232,24 @@ export default {
     },
 
     async trocar() {
+      this.item.valorVenda = moneyToFloat(this.item.valorVenda);
+      this.item.valorTotal = moneyToFloat(this.item.valorTotal);
       this.item.situacao = "Em troca";
       this.item.papel = "Troca";
       this.item.motivo = this.motivo;
       this.item.descricaoMotivo = this.descricao;
+
+      let myThis = this;
+
       await axios
         .post("/AlterarItem?OPERACAO=ALTERAR", qs.stringify(this.item))
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.dialogTroca = false;
       this.descricao = "";

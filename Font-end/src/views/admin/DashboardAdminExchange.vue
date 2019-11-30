@@ -85,6 +85,8 @@
 
     <!-- Footer -->
     <AdminFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -94,12 +96,14 @@ import AdminDrawer from "../../components/admin/AdminDrawer.vue";
 import AdminFooter from "../../components/admin/AdminFooter.vue";
 import axios from "axios";
 import qs from "querystring";
-import { formatteMoney } from "../../util/Formatter.js";
+import { formatteMoney, moneyToFloat } from "../../util/Formatter.js";
 
 export default {
   data() {
     return {
       dialog: false,
+      snackbar: false,
+      msg: "",
       search: "",
       motivo: "",
       headers: [
@@ -138,13 +142,19 @@ export default {
     },
 
     async alterar() {
+      this.troca.valorTotal = moneyToFloat(this.troca.valorTotal);
+      this.troca.valorVenda = moneyToFloat(this.troca.valorVenda);
+
+      let myThis = this;
       await axios
         .post("/AlterarItem?OPERACAO=ALTERAR", qs.stringify(this.troca))
         .then(function(response) {
-          console.log();
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
 
       let cupomTroca = {

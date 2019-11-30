@@ -124,6 +124,8 @@
     </v-dialog>
 
     <AdminFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -146,6 +148,8 @@ export default {
     return {
       dialogAlterar: false,
       dialogSalvar: false,
+      snackbar: false,
+      msg: "",
       search: "",
       headers: [
         {
@@ -180,29 +184,57 @@ export default {
     },
 
     async salvar() {
-      await axios.post(
-        "/SalvarGrupoPrecificacao?OPERACAO=SALVAR",
-        qs.stringify(this.precificacao)
-      );
+      let myThis = this;
+      await axios
+        .post(
+          "/SalvarGrupoPrecificacao?OPERACAO=SALVAR",
+          qs.stringify(this.precificacao)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getPrecificacoes();
       this.limpar();
       this.dialogSalvar = false;
     },
 
     async alterar() {
-      await axios.post(
-        "/AlterarGrupoPrecificacao?OPERACAO=ALTERAR",
-        qs.stringify(this.precificacao)
-      );
+      let myThis = this;
+      await axios
+        .post(
+          "/AlterarGrupoPrecificacao?OPERACAO=ALTERAR",
+          qs.stringify(this.precificacao)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getPrecificacoes();
       this.limpar();
       this.dialogAlterar = false;
     },
 
     async excluir(item) {
-      await axios.post(
-        `/ExcluirGrupoPrecificacao?OPERACAO=EXCLUIR&id=${item.id}`
-      );
+      let myThis = this;
+      await axios
+        .post(`/ExcluirGrupoPrecificacao?OPERACAO=EXCLUIR&id=${item.id}`)
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.getPrecificacoes();
     },
 

@@ -193,6 +193,8 @@
     </v-dialog>
 
     <ClientFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -209,6 +211,8 @@ export default {
     dialogSalvar: false,
     dialogAlterar: false,
     dialogExcluir: false,
+    snackbar: false,
+    msg: "",
     idCliente: "",
     enderecos: [],
     endereco: {
@@ -266,13 +270,16 @@ export default {
 
     async salvar() {
       this.endereco.usuario = this.stateUsuario.id;
+      let myThis = this;
       await axios
         .post("/SalvarEndereco?OPERACAO=SALVAR", qs.stringify(this.endereco))
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.limparEndereco();
@@ -280,13 +287,17 @@ export default {
     },
 
     async alterar() {
+      let myThis = this;
+
       await axios
         .post("/AlterarEndereco?OPERACAO=ALTERAR", qs.stringify(this.endereco))
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.limparEndereco();
@@ -307,15 +318,19 @@ export default {
     },
 
     async excluir(index) {
+      let myThis = this;
+
       await axios
         .post(
           `/ExcluirEndereco?OPERACAO=EXCLUIR&id=${this.enderecos[index].id}`
         )
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.listar();
       this.dialogExcluir = false;

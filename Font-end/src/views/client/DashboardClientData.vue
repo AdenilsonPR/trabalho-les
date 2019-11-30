@@ -124,6 +124,8 @@
     </v-dialog>
 
     <ClientFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -146,6 +148,8 @@ export default {
   data: () => ({
     dialogAlterar: false,
     dialogExcluir: false,
+    snackbar: false,
+    msg: "",
     idCliente: "",
     login: "",
     telefone: "",
@@ -194,15 +198,28 @@ export default {
     },
 
     async alterar() {
-      await axios.post(
-        "/AlterarUsuario?OPERACAO=ALTERAR",
-        qs.stringify(this.clienteModificado)
-      );
+      let myThis = this;
+
+      await axios
+        .post(
+          "/AlterarUsuario?OPERACAO=ALTERAR",
+          qs.stringify(this.clienteModificado)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
       this.dialogAlterar = false;
       this.getCliente();
     },
 
     async excluir() {
+      let myThis = this;
+
       await axios
         .post(`/ExcluirUsuario?OPERACAO=EXCLUIR&id=${this.cliente.id}`)
         .then(function(response) {
@@ -215,10 +232,12 @@ export default {
       await axios
         .post(`/ExcluirLogin?OPERACAO=EXCLUIR&id=${this.login.id}`)
         .then(function(response) {
-          console.log(response.data);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
         });
       this.dialogExcluir = false;
       this.navigateTo();
