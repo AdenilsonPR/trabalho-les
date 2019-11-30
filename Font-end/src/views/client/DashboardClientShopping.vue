@@ -162,6 +162,7 @@ import ClientFooter from "../../components/client/ClientFooter.vue";
 import axios from "axios";
 import qs from "querystring";
 import { mapState } from "vuex";
+import { formatteDate, formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -208,9 +209,18 @@ export default {
       let dadosCompra = await axios.get(
         `/ConsultarVenda?OPERACAO=CONSULTAR&usuario=${this.stateUsuario.id}`
       );
-      this.compras = dadosCompra.data.entidades.map(compra => {
-        compra.dataCadastro = this.formatteDate(compra.dataCadastro);
+
+      dadosCompra.data.entidades.map(compra => {
+        compra.dataCadastro = formatteDate(compra.dataCadastro);
+        compra.total = formatteMoney(compra.total);
+
+        compra.itens.map(item => {
+          item.valorTotal = formatteMoney(item.valorTotal);
+          item.valorVenda = formatteMoney(item.valorVenda);
+        });
       });
+
+      this.compras = dadosCompra.data.entidades;
     },
 
     async trocar() {
@@ -242,16 +252,6 @@ export default {
       item.situacao = this.situacao;
       this.item = item;
       this.dialogItem = true;
-      console.log(this.item);
-    },
-
-    formatteDate(data) {
-      let vetData = data.split(" ");
-      let newFormatte = `${vetData[1]} ${vetData[2]} ${vetData[5]}`;
-      let d = new Date(newFormatte);
-      return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
-        .map(n => (n < 10 ? `0${n}` : `${n}`))
-        .join("/");
     }
   },
 

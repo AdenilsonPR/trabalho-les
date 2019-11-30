@@ -204,6 +204,7 @@ import AdminFooter from "../../components/admin/AdminFooter.vue";
 import AdminToolbar from "../../components/admin/AdminToolbar.vue";
 import axios from "axios";
 import qs from "querystring";
+import { formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -295,8 +296,13 @@ export default {
 
     async getMateriais() {
       let materiais = await axios.get("/ConsultarMaterial?OPERACAO=CONSULTAR");
+
+      materiais.data.entidades.map(material => {
+        material.custo = formatteMoney(material.custo);
+        material.valorVenda = formatteMoney(material.valorVenda);
+      });
+
       this.materiais = materiais.data.entidades;
-      console.log(this.materiais);
       this.getFornecedores();
     },
 

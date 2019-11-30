@@ -101,6 +101,7 @@ import AdminToolbar from "../../components/admin/AdminToolbar.vue";
 import axios from "axios";
 import qs from "querystring";
 import { mapState } from "vuex";
+import { formatteDate, formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -139,6 +140,17 @@ export default {
   methods: {
     async listar() {
       let dadosVenda = await axios.get("/ConsultarVenda?OPERACAO=CONSULTAR");
+
+      dadosVenda.data.entidades.map(venda => {
+        venda.dataCadastro = formatteDate(venda.dataCadastro);
+        venda.total = formatteMoney(venda.total);
+
+        venda.itens.map(item => {
+          item.valorTotal = formatteMoney(item.valorTotal);
+          item.valorVenda = formatteMoney(item.valorVenda);
+        });
+      });
+
       this.vendas = dadosVenda.data.entidades;
     },
 
@@ -157,6 +169,15 @@ export default {
     visualizarCompra(item) {
       this.dialog = true;
       this.venda = item;
+    },
+
+    formatteDate(data) {
+      let vetData = data.split(" ");
+      let newFormatte = `${vetData[1]} ${vetData[2]} ${vetData[5]}`;
+      let d = new Date(newFormatte);
+      return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+        .map(n => (n < 10 ? `0${n}` : `${n}`))
+        .join("/");
     }
   },
 

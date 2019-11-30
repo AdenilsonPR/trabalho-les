@@ -60,7 +60,7 @@
                     <v-text-field label="Código" v-model="card.codigo"></v-text-field>
                   </v-flex>
                   <v-flex sm2>
-                    <v-text-field label="Valor" v-model="card.valor" prefix="R$"></v-text-field>
+                    <v-text-field label="Valor" v-model.lazy="card.valor" v-money="money"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-card-text>
@@ -96,13 +96,7 @@
                     <v-text-field label="Código" v-model="codigo" data-cy="codigo"></v-text-field>
                   </v-flex>
                   <v-flex sm2>
-                    <v-text-field
-                      label="Valor"
-                      v-model="valor"
-                      prefix="R$"
-                      id="valor"
-                      data-cy="valor"
-                    ></v-text-field>
+                    <v-text-field label="Valor" v-model="valor" v-money="money" data-cy="valor"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-card-text>
@@ -220,6 +214,7 @@
 import TradeToolbar from "../../components/trade/TradeToolbar.vue";
 import axios from "axios";
 import { mapState, mapMutations } from "vuex";
+import { VMoney } from "v-money";
 
 export default {
   data: () => ({
@@ -237,7 +232,15 @@ export default {
     numero: "",
     bandeira: "",
     codigo: "",
-    valor: ""
+    valor: "",
+
+    money: {
+      decimal: ".",
+      thousands: "",
+      prefix: "R$ ",
+      precision: 2,
+      masked: false
+    }
   }),
 
   methods: {
@@ -281,7 +284,7 @@ export default {
         nome: this.nome,
         bandeira: this.bandeira,
         codigo: this.codigo,
-        valor: this.valor,
+        valor: this.valor.substring(2, this.valor.length),
         usuario: this.stateUsuario.id
       });
 
@@ -308,7 +311,6 @@ export default {
 
       this.getCartoes(this.cartoes);
       this.cuponsUtilizados();
-      0;
       this.$router.push({ name: "address" });
     },
 
@@ -353,8 +355,8 @@ export default {
         this.bandeira != "" &&
         this.codigo != "" &&
         this.valor != "" &&
-        this.valor <= this.valorTotal &&
-        this.valor >= 0 &&
+        this.valor.substring(2, this.valor.length) <= this.valorTotal &&
+        this.valor.substring(2, this.valor.length) >= 10 &&
         this.somaCartoes <= this.valorTotal
       );
     },
@@ -392,9 +394,9 @@ export default {
     somaCartoes: function() {
       let valor = 0;
       this.cartoes.forEach(cartao => {
-        valor += Number(cartao.valor);
+        valor += Number(cartao.valor.substring(2, this.valor.length));
       });
-      return valor + Number(this.valor);
+      return valor + Number(this.valor.substring(2, this.valor.length));
     },
 
     // FIXME: cupom promocional tira do novo cupom gerado o valor do proprio cupom promocional
@@ -416,7 +418,9 @@ export default {
 
   components: {
     TradeToolbar
-  }
+  },
+
+  directives: { money: VMoney }
 };
 </script>
 

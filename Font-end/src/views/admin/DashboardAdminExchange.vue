@@ -94,6 +94,7 @@ import AdminDrawer from "../../components/admin/AdminDrawer.vue";
 import AdminFooter from "../../components/admin/AdminFooter.vue";
 import axios from "axios";
 import qs from "querystring";
+import { formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -128,6 +129,11 @@ export default {
         this.trocas = this.trocas.concat(
           venda.itens.filter(item => item.papel == "Troca")
         );
+      });
+
+      this.trocas.map(troca => {
+        troca.valorVenda = formatteMoney(troca.valorVenda);
+        troca.valorTotal = formatteMoney(troca.valorTotal);
       });
     },
 

@@ -25,8 +25,8 @@
                 <v-flex sm1>
                   <v-text-field label="Código" v-model="cartao.codigo" readonly></v-text-field>
                 </v-flex>
-                <v-flex sm1>
-                  <v-text-field label="Valor" v-model="cartao.valor" readonly></v-text-field>
+                <v-flex sm2>
+                  <v-text-field label="Valor" v-model.lazy="cartao.valor" v-money="money" readonly></v-text-field>
                 </v-flex>
               </v-layout>
               <v-divider></v-divider>
@@ -150,13 +150,22 @@ import TradeToolbar from "../../components/trade/TradeToolbar.vue";
 import axios from "axios";
 import qs from "querystring";
 import { mapMutations, mapState } from "vuex";
+import { VMoney } from "v-money";
 
 export default {
   data: () => ({
     dialog: false,
     itens: [],
     venda: {},
-    novoCupom: {}
+    novoCupom: {},
+
+    money: {
+      decimal: ",",
+      thousands: ".",
+      prefix: "R$ ",
+      precision: 2,
+      masked: false
+    }
   }),
 
   methods: {
@@ -283,6 +292,8 @@ export default {
   },
   components: {
     TradeToolbar
-  }
+  },
+
+  directives: { money: VMoney }
 };
 </script>

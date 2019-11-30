@@ -31,6 +31,7 @@ import ClientFooter from "../../components/client/ClientFooter.vue";
 import ClientToolbar from "../../components/client/ClientToolbar.vue";
 import axios from "axios";
 import { mapState } from "vuex";
+import { formatteDate, formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data: () => ({
@@ -43,9 +44,15 @@ export default {
       let dadosCupons = await axios.get(
         `/ConsultarCupomTroca?OPERACAO=CONSULTAR&usuario=${this.stateUsuario.id}`
       );
+
       this.cupons = dadosCupons.data.entidades.filter(
         cupom => cupom.status == "Ativo"
       );
+
+      this.cupons.map(cupom => {
+        cupom.dataCadastro = formatteDate(cupom.dataCadastro);
+        cupom.valor = formatteMoney(cupom.valor);
+      });
     }
   },
 

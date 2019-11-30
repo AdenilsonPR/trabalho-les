@@ -81,6 +81,7 @@ import ClientDrawer from "../../components/client/ClientDrawer.vue";
 import ClientFooter from "../../components/client/ClientFooter.vue";
 import axios from "axios";
 import { mapState } from "vuex";
+import { formatteMoney } from "../../util/Formatter.js";
 
 export default {
   data() {
@@ -94,7 +95,7 @@ export default {
           sortable: true,
           value: "descricao"
         },
-        { text: "Valor", value: "valorVenda" },
+        { text: "Valor unitário", value: "valorVenda" },
         { text: "Quantidade", value: "quantidade" },
         { text: "Valor total", value: "valorTotal" },
         { text: "Situação", value: "situacao" },
@@ -116,7 +117,11 @@ export default {
           venda.itens.filter(item => item.papel == "Troca")
         );
       });
-      console.log(this.trocas);
+
+      this.trocas.map(troca => {
+        troca.valorTotal = formatteMoney(troca.valorTotal);
+        troca.valorVenda = formatteMoney(troca.valorVenda);
+      });
     },
 
     visualizarTroca(item) {
