@@ -36,7 +36,16 @@
     <!-- Modal cadastro. -->
     <v-dialog v-model="dialogSalvar" persistent max-width="700">
       <template v-slot:activator="{ on }">
-        <v-btn bottom dark fab fixed right v-on="on" color="deep-orange accent-4">
+        <v-btn
+          bottom
+          dark
+          fab
+          fixed
+          right
+          v-on="on"
+          color="deep-orange accent-4"
+          data-cy="adicionar"
+        >
           <v-icon>add</v-icon>
         </v-btn>
       </template>
@@ -50,9 +59,9 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex sm6>
-                <v-text-field label="Descrição" v-model="material.descricao"></v-text-field>
+                <v-text-field label="Descrição" v-model="material.descricao" data-cy="descricao"></v-text-field>
               </v-flex>
-              <v-flex sm3>
+              <v-flex sm3 data-cy="categoria">
                 <v-select
                   :items="['Acabamento', 'Alvenaria', 'Ferragem', 'Tubulação']"
                   label="Categoria"
@@ -60,9 +69,9 @@
                 ></v-select>
               </v-flex>
               <v-flex sm3>
-                <v-text-field label="Valor de compra" v-model="material.custo"></v-text-field>
+                <v-text-field label="Valor de compra" v-model="material.custo" data-cy="custo"></v-text-field>
               </v-flex>
-              <v-flex sm4>
+              <v-flex sm4 data-cy="precificacao">
                 <v-select
                   :items="nomesGrupoPrecificacao"
                   label="Grupo de precificação"
@@ -70,7 +79,7 @@
                   v-model="material.precificacao"
                 ></v-select>
               </v-flex>
-              <v-flex sm5>
+              <v-flex sm5 data-cy="fornecedor">
                 <v-select
                   :items="nomesFornecedores"
                   item-value="value"
@@ -79,7 +88,12 @@
                 ></v-select>
               </v-flex>
               <v-flex sm3>
-                <v-text-field label="Quantidade" v-model="material.quantidade" type="number"></v-text-field>
+                <v-text-field
+                  label="Quantidade"
+                  v-model="material.quantidade"
+                  type="number"
+                  data-cy="quantidade"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -92,6 +106,7 @@
             color="green darken-1"
             text
             @click="salvar()"
+            data-cy="confirmar"
           >confirmar</v-btn>
         </v-card-actions>
       </v-card>

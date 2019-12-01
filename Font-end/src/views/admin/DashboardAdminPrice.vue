@@ -58,7 +58,16 @@
     <!-- Modal salvar -->
     <v-dialog v-model="dialogSalvar" persistent max-width="625">
       <template v-slot:activator="{ on }">
-        <v-btn bottom dark fab fixed right v-on="on" color="deep-orange accent-4">
+        <v-btn
+          bottom
+          dark
+          fab
+          fixed
+          right
+          v-on="on"
+          color="deep-orange accent-4"
+          data-cy="adicionar"
+        >
           <v-icon>add</v-icon>
         </v-btn>
       </template>
@@ -72,10 +81,18 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md9>
-                <v-text-field label="Grupo de precificação" v-model="precificacao.precificacao"></v-text-field>
+                <v-text-field
+                  label="Grupo de precificação"
+                  v-model="precificacao.precificacao"
+                  data-cy="precificacao"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md3>
-                <v-text-field label="% Lucro" v-model="precificacao.porcentagem"></v-text-field>
+                <v-text-field
+                  label="% Lucro"
+                  v-model="precificacao.porcentagem"
+                  data-cy="porcentagem"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -83,7 +100,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialogSalvar = false">Cancelar</v-btn>
-          <v-btn color="green darken-1" text @click="salvar()">confirmar</v-btn>
+          <v-btn color="green darken-1" text @click="salvar()" data-cy="confirmar">confirmar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

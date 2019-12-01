@@ -44,7 +44,7 @@
         </v-card>
         <div class="ml-7 mt-4">
           <span>Não possui um cadastro ainda?</span>
-          <v-btn text :to="{name: 'newClient'}">Cadastre - se</v-btn>
+          <v-btn text :to="{name: 'newClient'}" data-cy="cadastro">Cadastre - se</v-btn>
         </div>
         <div class="ml-12">
           <span>Não consegue entrar?</span>

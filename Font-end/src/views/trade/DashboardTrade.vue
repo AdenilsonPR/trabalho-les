@@ -18,7 +18,7 @@
       <v-spacer></v-spacer>
 
       <!-- Carrinho de compra -->
-      <v-badge right bottom v-if="stateUsuario.id !== undefined">
+      <v-badge right bottom v-if="stateUsuario != null ">
         <v-layout wrap justify-space-around>
           <v-menu transition="slide-y-transition" bottom offset-y>
             <template v-slot:activator="{ on }">
@@ -74,7 +74,7 @@
             </v-btn>
           </template>
 
-          <v-list v-if="stateUsuario.id !== undefined">
+          <v-list v-if="stateUsuario != null ">
             <v-list-item>
               <v-btn text :to="{name: 'dashboardClientData'}" data-cy="perfil">Perfil</v-btn>
             </v-list-item>
@@ -181,7 +181,7 @@
             color="deep-orange accent-4"
             dark
             @click="addItensCarrinho()"
-            v-if="stateUsuario.id !== undefined"
+            v-if="stateUsuario != null "
             data-cy="adicionar-carrinho"
           >Adicionar ao carrinho</v-btn>
         </v-card-actions>
@@ -327,10 +327,8 @@ export default {
         this.materiais.forEach(material => {
           if (item.id == material.id) {
             if (item.quantidade >= material.quantidade) {
-              console.log("entrou");
               return true;
             } else {
-              console.log("não entrou");
               return false;
             }
           }

@@ -21,7 +21,7 @@
           <v-icon>work</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>Materias</v-list-item-title>
+          <v-list-item-title>Materiais</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
