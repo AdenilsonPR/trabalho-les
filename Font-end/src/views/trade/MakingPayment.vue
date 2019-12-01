@@ -90,7 +90,11 @@
                     <v-text-field label="Número" v-model="numero" data-cy="numero"></v-text-field>
                   </v-flex>
                   <v-flex sm2 data-cy="bandeira">
-                    <v-select :items="['Bradesco', 'Elo']" label="Bandeira" v-model="bandeira"></v-select>
+                    <v-select
+                      :items="['Elo', 'Mastercard', 'Visa']"
+                      label="Bandeira"
+                      v-model="bandeira"
+                    ></v-select>
                   </v-flex>
                   <v-flex sm1>
                     <v-text-field label="Código" v-model="codigo" data-cy="codigo"></v-text-field>
@@ -250,13 +254,16 @@ export default {
       let cartoes = await axios.get(
         `/ConsultarCartao?OPERACAO=CONSULTAR&usuario=${this.stateUsuario.id}`
       );
-
       cartoes.data.entidades.forEach(cartao => {
-        this.numeroCartoesCadastrados.push({
-          value: cartao.numero,
-          text: cartao.numero
-        });
+        if (cartao.status == "Ativo") {
+          this.numeroCartoesCadastrados.push({
+            value: cartao.numero,
+            text: cartao.numero
+          });
+        }
       });
+
+      console.log(this.numeroCartoesCadastrados);
 
       this.cartoesCadastrados = cartoes.data.entidades;
 
