@@ -248,7 +248,7 @@ export default {
           myThis.snackbar = true;
         })
         .catch(function(error) {
-          myThis.msg = response.data.mensagem;
+          myThis.msg = error.data.mensagem;
           myThis.snackbar = true;
         });
       this.dialogTroca = false;

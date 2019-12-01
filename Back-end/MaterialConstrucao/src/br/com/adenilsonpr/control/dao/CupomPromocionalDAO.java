@@ -8,26 +8,34 @@ public class CupomPromocionalDAO implements IDAO{
 
 	@Override
 	public boolean create(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return false;
+		if (GenericDAO.create(entidade) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean update(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return false;
+		if (GenericDAO.update(entidade)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean delete(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return false;
+		if (GenericDAO.delete(entidade)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public List<EntidadeDominio> read(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		return GenericDAO.read(entidade, "id");
 	}
 
 }

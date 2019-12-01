@@ -205,6 +205,7 @@ CREATE TABLE cupompromocional
     dataCadastro CHARACTER VARYING(30) NOT NULL,
     status CHARACTER VARYING(8) NOT NULL,
     codigo CHARACTER VARYING(30) NOT NULL,
+    validade CHARACTER VARYING(10) NOT NULL,
     valor NUMERIC NOT NULL,
 
     CONSTRAINT cupompromocional_pk PRIMARY KEY(id)

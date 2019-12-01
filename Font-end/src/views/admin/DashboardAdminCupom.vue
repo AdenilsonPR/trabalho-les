@@ -44,7 +44,7 @@
                   <v-layout wrap>
                     <v-flex sm12>
                       <span>
-                        <h3>Deseja excluir o Cupom?</h3>
+                        <h3>Deseja excluir o cupom?</h3>
                       </span>
                     </v-flex>
                   </v-layout>
@@ -130,6 +130,8 @@
 
     <!-- Footer -->
     <AdminFooter />
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -179,19 +181,65 @@ export default {
           myThis.snackbar = true;
         })
         .catch(function(error) {
-          myThis.msg = response.data.mensagem;
+          myThis.msg = error.data.mensagem;
           myThis.snackbar = true;
         });
-      this.getMateriais();
-      this.limpar();
       this.dialogSalvar = false;
+      this.listar();
     },
 
-    async alterar() {},
+    async alterar() {
+      let myThis = this;
+      await axios
+        .post(
+          "/AlterarCupomPromocional?OPERACAO=ALTERAR",
+          qs.stringify(this.cupom)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = error.data.mensagem;
+          myThis.snackbar = true;
+        });
 
-    async listar() {},
+      this.limparCupom();
+      this.dialogAlterar = false;
+      this.listar();
+    },
 
-    async excluir(index) {}
+    async listar() {
+      let dadosCupons = await axios.get(
+        "/ConsultarCupomPromocional?OPERACAO=CONSULTAR"
+      );
+      this.cupons = dadosCupons.data.entidades.filter(
+        cupom => cupom.status == "Ativo"
+      );
+    },
+
+    async excluir(index) {
+      console.log(this.cupons);
+      let myThis = this;
+      await axios
+        .post(
+          `/ExcluirCupomPromocional?OPERACAO=EXCLUIR&id=${this.cupons[index].id}`
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = error.data.mensagem;
+          myThis.snackbar = true;
+        });
+      this.dialogExcluir = false;
+      this.listar();
+    }
+  },
+
+  created() {
+    this.listar();
   },
 
   components: {
