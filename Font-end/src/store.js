@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
 
     // Usuario
-    stateUsuario: {},
+    stateUsuario: JSON.parse(localStorage.getItem("usuario")),
 
     // Compra.
     stateItens: [],

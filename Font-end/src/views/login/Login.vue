@@ -101,6 +101,10 @@ export default {
         );
 
         this.getUsuario(dadosUsuario.data.entidades[0]);
+        localStorage.setItem(
+          "usuario",
+          JSON.stringify(dadosUsuario.data.entidades[0])
+        );
 
         if (dadosUsuario.data.entidades[0].papel == "Cliente") {
           this.$router.push({ name: "dashboardTrade" });

@@ -79,7 +79,7 @@
               <v-btn text :to="{name: 'dashboardClientData'}" data-cy="perfil">Perfil</v-btn>
             </v-list-item>
             <v-list-item>
-              <v-btn text :to="{name: 'login'}" data-cy="sair">Sair</v-btn>
+              <v-btn text @click="sair()" data-cy="sair">Sair</v-btn>
             </v-list-item>
           </v-list>
 
@@ -187,6 +187,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-app>
 </template>
 
@@ -204,6 +206,8 @@ export default {
     materiais: [],
     itens: [],
     usuario: {},
+    msg: "",
+    snackbar: false,
 
     item: {
       id: "",
@@ -238,6 +242,17 @@ export default {
     },
 
     addItensCarrinho() {
+      let itemEstoque = this.materiais.filter(
+        material => this.item.id == material.id
+      )[0];
+
+      if (itemEstoque.quantidade < this.item.quantidade) {
+        this.item.quantidade = itemEstoque.quantidade;
+        this.snackbar = true;
+        this.msg = "Quantidade de itens superior a quantidade em estoque.";
+        return;
+      }
+
       let flag = false;
       let idItem = 0;
       if (this.itens.length != 0) {
@@ -288,6 +303,11 @@ export default {
       });
       this.getCarrinho(this.itens);
       this.$router.push({ name: "makingSale" });
+    },
+
+    sair() {
+      localStorage.removeItem("usuario");
+      this.$router.push({ name: "login" });
     }
   },
 

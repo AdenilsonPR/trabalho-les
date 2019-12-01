@@ -23,10 +23,21 @@
             <v-btn text :to="{name: 'dashboardClientData'}">Perfil</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn text :to="{name: 'login'}">Sair</v-btn>
+            <v-btn text @click="sair()">Sair</v-btn>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-layout>
   </v-app-bar>
 </template>
+
+<script>
+export default {
+  methods: {
+    sair() {
+      localStorage.removeItem("usuario");
+      this.$router.push({ name: "login" });
+    }
+  }
+};
+</script>

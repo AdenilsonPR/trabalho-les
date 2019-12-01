@@ -145,15 +145,9 @@ export default {
     dialogSalvar: false,
     dialogAlterar: false,
     dialogExcluir: false,
-    cupons: [
-      {
-        id: 0,
-        codigo: "CUPOM00",
-        valor: "R$ 00,00",
-        validade: "00/00/0000"
-      }
-    ],
-
+    snackbar: false,
+    cupons: [],
+    msg: "",
     cupom: {}
   }),
 
@@ -173,7 +167,25 @@ export default {
       this.cupom.validade = "";
     },
 
-    async salvar() {},
+    async salvar() {
+      let myThis = this;
+      await axios
+        .post(
+          "/SalvarCupomPromocional?OPERACAO=SALVAR",
+          qs.stringify(this.cupom)
+        )
+        .then(function(response) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        })
+        .catch(function(error) {
+          myThis.msg = response.data.mensagem;
+          myThis.snackbar = true;
+        });
+      this.getMateriais();
+      this.limpar();
+      this.dialogSalvar = false;
+    },
 
     async alterar() {},
 
