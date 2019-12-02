@@ -163,7 +163,6 @@ export default {
 
     async alterar() {
       this.venda.total = moneyToFloat(this.venda.total);
-
       let myThis = this;
       await axios
         .post("/AlterarVenda?OPERACAO=ALTERAR", qs.stringify(this.venda))

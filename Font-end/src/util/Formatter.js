@@ -12,7 +12,7 @@ export function formatteMoney(real) {
 }
 
 export function moneyToFloat(money) {
-    return Number(money.replace("R$", "").replace(",", "."));
+    return Number(money.replace("R$", "").replace(".", "").replace(",", "."));
 }
 
 

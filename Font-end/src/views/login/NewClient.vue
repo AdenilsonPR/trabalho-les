@@ -22,12 +22,13 @@
                       v-model="cliente.nome"
                       maxlength="30"
                       :rules="regrasNome"
+                      data-cy="nome"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm6>
-                    <v-text-field label="CPF" v-model="cliente.cpf">></v-text-field>
+                    <v-text-field label="CPF" v-model="cliente.cpf" data-cy="cpf"></v-text-field>
                   </v-flex>
-                  <v-flex sm6>
+                  <v-flex sm6 data-cy="genero">
                     <v-select
                       :items="['Feminino', 'Masculino']"
                       label="Gênero"
@@ -40,6 +41,7 @@
                       label="Nascimento"
                       v-model="cliente.nascimento"
                       :rules="regrasNascimento"
+                      data-cy="nascimento"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -53,6 +55,7 @@
               @click="dadosPessoais = false, dadosTelefone = true"
               v-bind:disabled="!validarDadosPessoais"
               v-bind:dark="validarDadosPessoais"
+              data-cy="continuar"
             >Continuar</v-btn>
           </v-card-actions>
         </v-card>
@@ -66,7 +69,7 @@
             <form>
               <v-container grid-list-md>
                 <v-layout wrap>
-                  <v-flex sm12>
+                  <v-flex sm12 data-cy="tipo">
                     <v-select
                       :items="['Celular', 'Residencial']"
                       label="Tipo"
@@ -75,10 +78,10 @@
                     ></v-select>
                   </v-flex>
                   <v-flex sm12>
-                    <v-text-field label="DDD" v-model="cliente.ddd" maxlength="2"></v-text-field>
+                    <v-text-field label="DDD" v-model="cliente.ddd" maxlength="2" data-cy="ddd"></v-text-field>
                   </v-flex>
                   <v-flex sm12>
-                    <v-text-field label="Número" v-model="cliente.numero"></v-text-field>
+                    <v-text-field label="Número" v-model="cliente.numero" data-cy="numero"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -92,6 +95,7 @@
               @click="dadosTelefone = false, dadosLogin = true"
               v-bind:disabled="!validarDadosTelefone"
               v-bind:dark="validarDadosTelefone"
+              data-cy="continuar"
             >Continuar</v-btn>
           </v-card-actions>
         </v-card>
@@ -113,6 +117,7 @@
                       maxlength="30"
                       v-model="cliente.email"
                       :rules="regrasEmail"
+                      data-cy="email"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm12>
@@ -124,6 +129,7 @@
                       @click:append="show = !show"
                       :type="show ? 'password' : 'text'"
                       class="input-group--focused"
+                      data-cy="senha"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm12></v-flex>
@@ -140,11 +146,13 @@
               v-bind:disabled="!validarDadosLogin"
               v-bind:dark="validarDadosLogin"
               :to="{name: rota}"
+              data-cy="continuar"
             >Confirmar</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
+    <v-snackbar v-model="snackbar">{{msg}}</v-snackbar>
   </v-container>
 </template>
 
@@ -158,6 +166,7 @@ export default {
     dadosPessoais: true,
     dadosTelefone: false,
     dadosLogin: false,
+    snackbar: false,
     msg: "",
 
     cliente: {
@@ -190,16 +199,18 @@ export default {
 
   methods: {
     async salvar() {
+      let myThis = this;
       await axios
         .post("/SalvarUsuario?OPERACAO=SALVAR", qs.stringify(this.cliente))
         .then(response => {
-          this.msg = response.data;
-          this.navigateTo();
+          myThis.msg = response.data;
+          myThis.navigateTo();
         })
         .catch(function(error) {
-          console.log(error);
+          myThis.msg = error.data;
         });
     },
+
     navigateTo() {
       this.$router.push({
         name: "login",
