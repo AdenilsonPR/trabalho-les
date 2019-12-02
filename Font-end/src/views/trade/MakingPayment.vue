@@ -363,7 +363,8 @@ export default {
         this.codigo != "" &&
         this.valor != "" &&
         this.valor.substring(2, this.valor.length) <= this.valorTotal &&
-        this.valor.substring(2, this.valor.length) >= 10 &&
+        (this.valor.substring(2, this.valor.length) >= 10 ||
+          this.gerarCupomTroca > 0) &&
         this.somaCartoes <= this.valorTotal
       );
     },

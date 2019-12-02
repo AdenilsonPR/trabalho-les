@@ -14,7 +14,6 @@ describe("Teste: efetuar uma compra.", () => {
 
     it('Escolher material.', () => {
         cy.wait(3000)
-        cy.contains('div', 'Material 01').parent('div').click()
         cy.get('[data-cy=material-0]').click()
         cy.wait(1000)
         cy.get('[data-cy=quantidade]').type(0)
