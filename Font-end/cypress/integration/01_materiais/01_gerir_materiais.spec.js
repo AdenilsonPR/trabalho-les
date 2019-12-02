@@ -66,7 +66,7 @@ describe("Teste: gerir materiais.", () => {
         cy.get('[data-cy=fornecedor]').click()
         cy.wait(1000)
         cy.contains('div', 'Fornecedor 01').parent('div').click()
-        cy.get('[data-cy=quantidade]').type('10000')
+        cy.get('[data-cy=quantidade]').type('10000000')
         cy.get('[data-cy=confirmar]').click()
         cy.wait(3000)
         cy.get('[data-cy=adicionar]').click()
@@ -81,7 +81,7 @@ describe("Teste: gerir materiais.", () => {
         cy.get('[data-cy=fornecedor]').click()
         cy.wait(1000)
         cy.contains('div', 'Fornecedor 02').parent('div').click()
-        cy.get('[data-cy=quantidade]').type('15000')
+        cy.get('[data-cy=quantidade]').type('10000000')
         cy.get('[data-cy=confirmar]').click()
     });
 })

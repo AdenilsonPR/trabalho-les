@@ -226,6 +226,9 @@ export default {
     async getMateriais() {
       let materiais = await axios.get("/ConsultarMaterial?OPERACAO=CONSULTAR");
       this.materiais = materiais.data.entidades;
+      this.materiais = this.materiais.filter(
+        produto => produto.status == "Ativo"
+      );
     },
 
     visualizar(index, id) {
